@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Authors>David Zimmer, Timo Muehlhaus</Authors>
+    <Description></Description>
+    <Summary></Summary>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/CSBiology/Drafo</PackageProjectUrl>
+    <PackageIconUrl>https://fslab.org/docs-template/img/logo.png</PackageIconUrl>
+    <PackageTags>fsharp deedle table transform</PackageTags>
+    <RepositoryUrl>https://github.com/CSBiology/Drafo</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <LicenseLink>https://github.com/CSBiology/Drafo/blob/main/LICENSE</LicenseLink>
+    <ReleaseNotesLink>https://github.com/CSBiology/Drafo/blob/main/RELEASE_NOTES.md</ReleaseNotesLink>
+</PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Library.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Deedle" Version="2.3.0" />
+    <PackageReference Include="DynamicObj" Version="0.0.1" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
