@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <Authors>David Zimmer, Timo Muehlhaus</Authors>
@@ -21,7 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Deedle" Version="2.3.0" />
-    <PackageReference Include="DynamicObj" Version="0.0.1" />
+    <PackageReference Include="DynamicObj" Version="0.0.3" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
