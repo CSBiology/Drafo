@@ -25,4 +25,4 @@ module console =
         let kc = results.GetResult KeyColumns       
         let tc = results.GetResult TargetCol       
         GetColumn.getColumn kc tc o i 
-        0 // return an integer exit code
+        0 

@@ -164,8 +164,7 @@ let tests =
       Expect.isTrue (ckEqual) "columnKeysAreEqual"                                  
   
     testCase "getColumnConsole_help" <| fun _ ->
-      let path = @"C:\Users\David Zimmer\source\repos\Drafo\bin\GetColumn\net5.0\GetColumn.exe"// 
-      printfn "Path: %s" path
+      let path = System.IO.Path.Combine(__SOURCE_DIRECTORY__,"../../bin/GetColumn/net5.0/","Drafo.GetColumn.exe")
       let arg = "--help"
       let p =                        
         new ProcessStartInfo
@@ -176,7 +175,6 @@ let tests =
       p.WaitForExit()
       let c = p.ExitCode
       p.Close()
-      Expect.equal c 0 "Ran." 
-
+      Expect.equal c 0 "Help flag works." 
   
   ]
