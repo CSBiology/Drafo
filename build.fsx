@@ -197,6 +197,75 @@ module PackageTasks =
             failwith "aborted"
     }
 
+/// Build tasks for documentation setup and development
+module DocumentationTasks =
+
+    open ProjectInfo
+
+    open BasicTasks
+
+    let initDocPage = BuildTask.create "InitDocsPage" [] {
+        printfn "Please enter filename"
+        let filename = System.Console.ReadLine()
+        
+        printfn "Please enter title"
+        let title = System.Console.ReadLine()
+
+        let path = "./docs" </> filename
+
+        let lines = """
+    (*** hide ***)
+    (*** condition: prepare ***)
+    #r @"..\packages\Newtonsoft.Json\lib\netstandard2.0\Newtonsoft.Json.dll"
+    #r "../bin/Plotly.NET/netstandard2.1/Plotly.NET.dll"
+    (*** condition: ipynb ***)
+    #if IPYNB
+    #r "nuget: Plotly.NET, {{fsdocs-package-version}}"
+    #r "nuget: Plotly.NET.Interactive, {{fsdocs-package-version}}"
+    #endif // IPYNB
+    (**
+    # {{TITLE}}
+    [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/plotly/Plotly.NET/gh-pages?filepath={{FILENAME}}.ipynb)
+    *)
+    """
+
+        if (promptYesNo (sprintf "creating file %s with title %s OK?" path title)) then
+            lines
+            |> String.replace "{{FILENAME}}" filename
+            |> String.replace "{{TITLE}}" title
+            |> fun content -> File.WriteAllText (path,content)
+        else
+            failwith "aborted"
+    }
+
+    let buildDocs = BuildTask.create "BuildDocs" [build; copyBinaries] {
+        printfn "building docs with stable version %s" stableVersionTag
+        runDotNet 
+            (sprintf "fsdocs build --eval --clean --noapidocs --properties Configuration=Release --parameters fsdocs-package-version %s" stableVersionTag)
+            "./"
+    }
+
+    let buildDocsPrerelease = BuildTask.create "BuildDocsPrerelease" [setPrereleaseTag; build; copyBinaries] {
+        printfn "building docs with prerelease version %s" prereleaseTag
+        runDotNet 
+            (sprintf "fsdocs build --eval --clean --noapidocs --properties Configuration=Release --parameters fsdocs-package-version %s" prereleaseTag)
+            "./"
+    }
+
+    let watchDocs = BuildTask.create "WatchDocs" [build; copyBinaries] {
+        printfn "watching docs with stable version %s" stableVersionTag
+        runDotNet 
+            (sprintf "fsdocs watch --eval --clean --noapidocs --properties Configuration=Release --parameters fsdocs-package-version %s" stableVersionTag)
+            "./"
+    }
+
+    let watchDocsPrerelease = BuildTask.create "WatchDocsPrerelease" [setPrereleaseTag; build; copyBinaries] {
+        printfn "watching docs with prerelease version %s" prereleaseTag
+        runDotNet 
+            (sprintf "fsdocs watch --eval --clean --noapidocs --properties Configuration=Release --parameters fsdocs-package-version %s" prereleaseTag)
+            "./"
+    }
+
 open BasicTasks
 open TestTasks
 
