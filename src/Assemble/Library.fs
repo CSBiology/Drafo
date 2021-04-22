@@ -18,3 +18,15 @@ module GetColumn =
         let column = res |> getColumn<string> targetCol
         let toSave = seriesToFrame column
         toSave.SaveCsv(outFilePath,separator='\t',includeRowKeys=false)   
+        
+// module Assemble =
+
+//     let assemble (outputDir:string) (cols:seq<string>) name =
+//         let outFilePath =
+//             let fileName = name + ".txt"
+//             Path.Combine [|outputDir;fileName|]
+//         let filterCols = cols |> Seq.map KeyColumns.readAndIndexFrame |> Seq.map (getColumn<string> "Value")
+//         let filterColsNamed = Seq.map2 (fun (x:string) y -> (Path.GetFileNameWithoutExtension x),y) cols filterCols
+//         let assembeled = filterColsNamed |> assemble    
+//         let toSave = assembeled |>  rowKeyToColumns 
+//         toSave.SaveCsv(outFilePath,separator='\t',includeRowKeys=false)   
