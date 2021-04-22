@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
 
@@ -20,5 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Drafo\Drafo.fsproj" />
+    <ProjectReference Include="..\..\src\GetColumn\GetColumn.fsproj" />
   </ItemGroup>
 </Project>

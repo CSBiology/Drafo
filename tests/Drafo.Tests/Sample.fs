@@ -3,6 +3,8 @@ module Tests
 open Expecto
 open Drafo
 open Deedle
+open System.Diagnostics
+
 
 [<Tests>]
 let tests =
@@ -48,6 +50,7 @@ let tests =
       |> Frame.addCol "index3" index3
       |> Frame.addCol "value1" value1
       |> Frame.addCol "value2" value2
+
     let testFrameIndexed = 
       testFrame
       |> Drafo.Core.indexWithColumnValues ["index1";"index2";"index3"]
@@ -91,8 +94,7 @@ let tests =
       let checkTrue = Series.getAt 0 a |> (=) 3000. 
       let checkTrue' = Series.getAt 1 a |> (=) 1.
       Expect.isTrue (checkTrue && checkTrue') "columnKeysAreEqual" 
-
-    
+   
     testCase "aggregate_withFilter" <| fun _ ->
       let c =
         testFrameIndexed
@@ -105,8 +107,6 @@ let tests =
       let checkTrue = Series.getAt 0 a |> (=) 3000. 
       let checkTrue' = Series.countValues a |> (=) 1
       Expect.isTrue (checkTrue && checkTrue') "columnKeysAreEqual" 
-
-
 
     testCase "assemble_keyEqual" <| fun _ ->
       let c =
@@ -162,4 +162,21 @@ let tests =
         |> Seq.contains false
         |> not
       Expect.isTrue (ckEqual) "columnKeysAreEqual"                                  
+  
+    testCase "getColumnConsole_help" <| fun _ ->
+      let path = @"C:\Users\David Zimmer\source\repos\Drafo\bin\GetColumn\net5.0\GetColumn.exe"// 
+      printfn "Path: %s" path
+      let arg = "--help"
+      let p =                        
+        new ProcessStartInfo
+          (FileName = path, UseShellExecute = false, Arguments = arg, 
+           RedirectStandardError = false, CreateNoWindow = true, 
+           RedirectStandardOutput = false, RedirectStandardInput = true) 
+        |> Process.Start
+      p.WaitForExit()
+      let c = p.ExitCode
+      p.Close()
+      Expect.equal c 0 "Ran." 
+
+  
   ]

@@ -7,6 +7,7 @@ open CLIArgumentParsing
 open System
 open System.IO
 open System.Reflection
+
 module console = 
 
     let getRelativePath (reference: string) (path: string) =
@@ -20,8 +21,8 @@ module console =
         let getPathRelativeToDir = getRelativePath directory
         let results = parser.Parse(argv)
         let i = results.GetResult InputFolder      |> getPathRelativeToDir
-        let kc = results.GetResult KeyColumns       
-        let tc = results.GetResult TargetCol        |> getPathRelativeToDir
         let o = results.GetResult OutputDirectory  |> getPathRelativeToDir
+        let kc = results.GetResult KeyColumns       
+        let tc = results.GetResult TargetCol       
         GetColumn.getColumn kc tc o i 
         0 // return an integer exit code

@@ -1,0 +1,5 @@
+index1	index2	index3	value1	value2
+one	1	"group 1"	1000	10000
+two	2	"group 1"	2000	20000
+three	3	"group 2"		
+four	4	"group 2"	1	10
