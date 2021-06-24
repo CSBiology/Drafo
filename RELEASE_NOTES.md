@@ -1,2 +1,3 @@
 # Drafo
-### 0.0.1 - 4/16/2021
+#### 0.0.1 - Thursday, June 24, 2021
+* Initial release
