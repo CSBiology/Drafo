@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Compile Include="DrafoCore.fs" />
+    <Compile Include="NumericTransform.fs" />
 	<Compile Include="GroupFilter.fs" />
     <Compile Include="GroupWiseNumericTransform.fs" />
 	<Compile Include="NumericFilter.fs" />

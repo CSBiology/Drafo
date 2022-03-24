@@ -212,6 +212,19 @@ The module has two functions either `numAgAllCol`that aggregates over all column
 The result is a Frame<Key,string>
 *)
 (**
+## NumericTransform
+The `NumericTransform` has five operations that can be done on all values in either a column(sereies) or a frame:
+        | Log2
+        | Substract
+        | Add 
+        | DivideBy 
+        | MultiplyBy  
+
+These are can be either used on a full frame,`numericTransformAllCols` , or on a single column, `numericTransformOneCol`.
+Both need a Frame of the type <Key,_> and a seq<string>, to determine which columns are dropped but  `numericTransform` 
+needs a string to determine the column.
+*)
+(**
 ## module NumericFilter
 `NumericFilter` is a module that can say if values in a given column are bigger or smaller than a given value.
 The resultant series of the type <Key,bool>.
@@ -243,7 +256,6 @@ This happens based on the filter provided.
 `stAggregate` only uses one column of a Frame and `stAggregateFullFrame`iterats over the entire frame
 
 *)
-
 
 
 
