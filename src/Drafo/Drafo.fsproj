@@ -1,31 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-    <PropertyGroup>
-    <Authors>David Zimmer, Jonathan Ott, Timo Muehlhaus</Authors>
-    <Description>Drafo</Description>
-    <Summary>Drafo</Summary>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <OutputType>Library</OutputType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!-- <PackageProjectUrl>https://csbiology.github.io/ProteomIQon/</PackageProjectUrl> -->
-    <!--<PackageIconUrl>https://github.com/CSBiology/ProteomIQon</PackageIconUrl>-->
-    <PackageTags>fsharp dotnet</PackageTags>
-    <RepositoryUrl>https://github.com/CSBiology/Drafo</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <FsDocsLicenseLink>https://github.com/CSBiology/Drafo/blob/main/LICENSE</FsDocsLicenseLink>
-    <FsDocsReleaseNotesLink>https://github.com/CSBiology/Drafo/blob/main/RELEASE_NOTES.md</FsDocsReleaseNotesLink>
+    <WarnOn>3390;$(WarnOn)</WarnOn>
   </PropertyGroup>
+  <PropertyGroup>
+	<Authors>David Zimmer, Jonathan Ott,Jonathan Hochsticher, Timo Muehlhaus</Authors>
+	<Description>Drafo</Description>
+	<Summary>Drafo</Summary>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<OutputType>Library</OutputType>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<!-- <PackageProjectUrl>https://csbiology.github.io/ProteomIQon/</PackageProjectUrl> -->
+	<!--<PackageIconUrl>https://github.com/CSBiology/ProteomIQon</PackageIconUrl>-->
+	<PackageTags>fsharp dotnet</PackageTags>
+	<RepositoryUrl>https://github.com/CSBiology/Drafo</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<FsDocsLicenseLink>https://github.com/CSBiology/Drafo/blob/main/LICENSE</FsDocsLicenseLink>
+	<FsDocsReleaseNotesLink>https://github.com/CSBiology/Drafo/blob/main/RELEASE_NOTES.md</FsDocsReleaseNotesLink>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Include="Core.fs" />
+    <Compile Include="DrafoCore.fs" />
+    <Compile Include="NumericTransform.fs" />
+	<Compile Include="GroupFilter.fs" />
+    <Compile Include="GroupWiseNumericTransform.fs" />
+	<Compile Include="NumericFilter.fs" />
+	<Compile Include="NummericAggregation.fs" />
+	<Compile Include="StringAggregation.fs" />
+	<None Include="Playground.fsx" />
+  
   </ItemGroup>
+
+  <ItemGroup />
   <ItemGroup>
-    <PackageReference Include="Deedle" Version="2.3.0" />
-    <PackageReference Include="DynamicObj" Version="0.0.3" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Deedle" Version="2.5.0" />
+    <PackageReference Include="FSharp.Stats" Version="0.4.3" />
+    <PackageReference Include="FSharpAux" Version="1.1.0" />
+    <PackageReference Include="FSharpAux.IO" Version="1.1.0" />
+    <PackageReference Include="DynamicObj" Version="1.0.1" />
   </ItemGroup>
 </Project>

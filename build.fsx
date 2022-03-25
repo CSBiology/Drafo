@@ -57,7 +57,7 @@ let runDotNet cmd workingDir =
     if result.ExitCode <> 0 then failwithf "'dotnet %s' failed in %s" cmd workingDir
 
 
-    /// Metadata about the project
+/// Metadata about the project
 module ProjectInfo = 
 
     let project = "Drafo"
@@ -68,7 +68,7 @@ module ProjectInfo =
 
     // Git configuration (used for publishing documentation in gh-pages branch)
     // The profile where the project is posted
-    let gitOwner = "CSBiology"
+    let gitOwner = "Falkenei"
     let gitName = "Drafo"
 
     let gitHome = sprintf "%s/%s" "https://github.com" gitOwner
@@ -92,6 +92,7 @@ module ProjectInfo =
     let mutable isPrerelease = false
 
     let testProject = "tests/Drafo.Tests/Drafo.Tests.fsproj"
+
 /// Barebones, minimal build tasks
 module BasicTasks = 
 
@@ -126,9 +127,10 @@ module BasicTasks =
         for i in targets do printfn "%A" i
         targets
         |>  Seq.iter (fun (fromDir, toDir) -> Shell.copyDir toDir fromDir (fun _ -> true))
-    }    
+    }
+    
 
-/// Test executing build tasks
+
 module TestTasks = 
 
     open ProjectInfo
@@ -144,7 +146,7 @@ module TestTasks =
         ) testProject
     }
 
-/// Package creation
+// Package creation
 module PackageTasks = 
 
     open ProjectInfo
@@ -241,32 +243,141 @@ module DocumentationTasks =
     let buildDocs = BuildTask.create "BuildDocs" [build; copyBinaries] {
         printfn "building docs with stable version %s" stableVersionTag
         runDotNet 
-            (sprintf "fsdocs build --eval --clean --noapidocs --properties Configuration=Release --parameters fsdocs-package-version %s" stableVersionTag)
+            (sprintf "fsdocs build --eval --clean --properties Configuration=Release --parameters fsdocs-package-version %s" stableVersionTag)
             "./"
     }
 
     let buildDocsPrerelease = BuildTask.create "BuildDocsPrerelease" [setPrereleaseTag; build; copyBinaries] {
         printfn "building docs with prerelease version %s" prereleaseTag
         runDotNet 
-            (sprintf "fsdocs build --eval --clean --noapidocs --properties Configuration=Release --parameters fsdocs-package-version %s" prereleaseTag)
+            (sprintf "fsdocs build --eval --clean --properties Configuration=Release --parameters fsdocs-package-version %s" prereleaseTag)
             "./"
     }
 
     let watchDocs = BuildTask.create "WatchDocs" [build; copyBinaries] {
         printfn "watching docs with stable version %s" stableVersionTag
         runDotNet 
-            (sprintf "fsdocs watch --eval --clean --noapidocs --properties Configuration=Release --parameters fsdocs-package-version %s" stableVersionTag)
+            (sprintf "fsdocs watch --eval --clean --properties Configuration=Release --parameters fsdocs-package-version %s" stableVersionTag)
             "./"
     }
 
     let watchDocsPrerelease = BuildTask.create "WatchDocsPrerelease" [setPrereleaseTag; build; copyBinaries] {
         printfn "watching docs with prerelease version %s" prereleaseTag
         runDotNet 
-            (sprintf "fsdocs watch --eval --clean --noapidocs --properties Configuration=Release --parameters fsdocs-package-version %s" prereleaseTag)
+            (sprintf "fsdocs watch --eval --clean --properties Configuration=Release --parameters fsdocs-package-version %s" prereleaseTag)
             "./"
+    }
+
+/// Buildtasks that release stuff, e.g. packages, git tags, documentation, etc.
+module ReleaseTasks =
+
+    open ProjectInfo
+
+    open BasicTasks
+    open TestTasks
+    open PackageTasks
+    open DocumentationTasks
+
+    let createTag = BuildTask.create "CreateTag" [clean; build; copyBinaries; runTests; pack] {
+        if promptYesNo (sprintf "tagging branch with %s OK?" stableVersionTag ) then
+            Git.Branches.tag "" stableVersionTag
+            Git.Branches.pushTag "" projectRepo stableVersionTag
+        else
+            failwith "aborted"
+    }
+
+    let createPrereleaseTag = BuildTask.create "CreatePrereleaseTag" [setPrereleaseTag; clean; build; copyBinaries; runTests; packPrerelease] {
+        if promptYesNo (sprintf "tagging branch with %s OK?" prereleaseTag ) then 
+            Git.Branches.tag "" prereleaseTag
+            Git.Branches.pushTag "" projectRepo prereleaseTag
+        else
+            failwith "aborted"
+    }
+
+    
+    let publishNuget = BuildTask.create "PublishNuget" [clean; build; copyBinaries; runTests; pack] {
+        let targets = (!! (sprintf "%s/*.*pkg" pkgDir ))
+        for target in targets do printfn "%A" target
+        let msg = sprintf "release package with version %s?" stableVersionTag
+        if promptYesNo msg then
+            let source = "https://api.nuget.org/v3/index.json"
+            let apikey =  Environment.environVar "NUGET_KEY_CSB"
+            for artifact in targets do
+                let result = DotNet.exec id "nuget" (sprintf "push -s %s -k %s %s --skip-duplicate" source apikey artifact)
+                if not result.OK then failwith "failed to push packages"
+        else failwith "aborted"
+    }
+
+    let publishNugetPrerelease = BuildTask.create "PublishNugetPrerelease" [clean; build; copyBinaries; runTests; packPrerelease] {
+        let targets = (!! (sprintf "%s/*.*pkg" pkgDir ))
+        for target in targets do printfn "%A" target
+        let msg = sprintf "release package with version %s?" prereleaseTag 
+        if promptYesNo msg then
+            let source = "https://api.nuget.org/v3/index.json"
+            let apikey =  Environment.environVar "NUGET_KEY_CSB"
+            for artifact in targets do
+                let result = DotNet.exec id "nuget" (sprintf "push -s %s -k %s %s --skip-duplicate" source apikey artifact)
+                if not result.OK then failwith "failed to push packages"
+        else failwith "aborted"
+    }
+
+    let releaseDocs =  BuildTask.create "ReleaseDocs" [buildDocs] {
+        let msg = sprintf "release docs for version %s?" stableVersionTag
+        if promptYesNo msg then
+            Shell.cleanDir "temp"
+            Git.CommandHelper.runSimpleGitCommand "." (sprintf "clone %s temp/gh-pages --depth 1 -b gh-pages" projectRepo) |> ignore
+            Shell.copyRecursive "output" "temp/gh-pages" true |> printfn "%A"
+            Git.CommandHelper.runSimpleGitCommand "temp/gh-pages" "add ." |> printfn "%s"
+            let cmd = sprintf """commit -a -m "Update generated documentation for version %s""" stableVersionTag
+            Git.CommandHelper.runSimpleGitCommand "temp/gh-pages" cmd |> printfn "%s"
+            Git.Branches.push "temp/gh-pages"
+        else failwith "aborted"
+    }
+
+    let prereleaseDocs =  BuildTask.create "PrereleaseDocs" [buildDocsPrerelease] {
+        let msg = sprintf "release docs for version %s?" prereleaseTag
+        if promptYesNo msg then
+            Shell.cleanDir "temp"
+            Git.CommandHelper.runSimpleGitCommand "." (sprintf "clone %s temp/gh-pages --depth 1 -b gh-pages" projectRepo) |> ignore
+            Shell.copyRecursive "output" "temp/gh-pages" true |> printfn "%A"
+            Git.CommandHelper.runSimpleGitCommand "temp/gh-pages" "add ." |> printfn "%s"
+            let cmd = sprintf """commit -a -m "Update generated documentation for version %s""" prereleaseTag
+            Git.CommandHelper.runSimpleGitCommand "temp/gh-pages" cmd |> printfn "%s"
+            Git.Branches.push "temp/gh-pages"
+        else failwith "aborted"
     }
 
 open BasicTasks
 open TestTasks
+open PackageTasks
+open DocumentationTasks
+open ReleaseTasks
 
-BuildTask.runOrDefault copyBinaries    
+/// Full release of nuget package, git tag, and documentation for the stable version.
+let _release = 
+    BuildTask.createEmpty 
+        "Release" 
+        [clean; build; copyBinaries; runTests; pack; buildDocs; createTag; publishNuget; releaseDocs]
+
+/// Full release of nuget package, git tag, and documentation for the prerelease version.
+let _preRelease = 
+    BuildTask.createEmpty 
+        "PreRelease" 
+        [setPrereleaseTag; clean; build; copyBinaries; runTests; packPrerelease; buildDocsPrerelease; createPrereleaseTag; publishNugetPrerelease; prereleaseDocs]
+
+/// Full release of nuget package for the prerelease version.
+let _releaseNoDocs = 
+    BuildTask.createEmpty 
+        "ReleaseNoDocs" 
+        [clean; build; copyBinaries; runTests; pack; createTag; publishNuget;]
+
+/// Full release of nuget package for the prerelease version.
+let _preReleaseNoDocs = 
+    BuildTask.createEmpty 
+        "PreReleaseNoDocs" 
+        [setPrereleaseTag; clean; build; copyBinaries; runTests; packPrerelease; createPrereleaseTag; publishNugetPrerelease]
+
+
+// run copyBinaries by default
+BuildTask.runOrDefault copyBinaries
+

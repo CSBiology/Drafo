@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Drafo", "src\Drafo\Drafo.fsproj", "{E8F93F98-AFF9-4318-8F05-9BBCDB59D9CC}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Drafo.Tests", "tests\Drafo.Tests\Drafo.Tests.fsproj", "{58C7D4CA-988C-403B-B981-D64824FEE4DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{1B9C6599-A6CD-4085-A37B-1C63D87F06A3}"
+	ProjectSection(SolutionItems) = preProject
+		build.fsx = build.fsx
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8F93F98-AFF9-4318-8F05-9BBCDB59D9CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F93F98-AFF9-4318-8F05-9BBCDB59D9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F93F98-AFF9-4318-8F05-9BBCDB59D9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F93F98-AFF9-4318-8F05-9BBCDB59D9CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58C7D4CA-988C-403B-B981-D64824FEE4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58C7D4CA-988C-403B-B981-D64824FEE4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58C7D4CA-988C-403B-B981-D64824FEE4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58C7D4CA-988C-403B-B981-D64824FEE4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84451FAE-24AB-415F-A308-6E3AE2B95CF8}
+	EndGlobalSection
+EndGlobal
