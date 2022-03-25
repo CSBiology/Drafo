@@ -97,7 +97,7 @@ let CoreTests =
         )
 
         testCase "readFrame" (fun _ -> 
-            let actual = readFrame @"C:\Users\hochs\source\repos\Drafo\tests\Drafo.Tests\TestFour.csv"
+            let actual = readFrame @"../../../TestFour.csv"
             let expected =
                 frame [
                     ("TestColOne")=> series [0 => "1";1 =>"3"]
@@ -109,7 +109,7 @@ let CoreTests =
         )
 
         testCase "readAndIndexFrame" (fun _-> 
-            let actual = readAndIndexFrame ["keys"] @"C:\Users\hochs\source\repos\Drafo\tests\Drafo.Tests\TestFour.csv"
+            let actual = readAndIndexFrame ["keys"] @"../../../TestFour.csv"
             let expected =
                 frame [
                     ("TestColOne")=> series [0 => "1";1 =>"3"]
@@ -366,7 +366,7 @@ let CoreTests =
 
            
             let readIn = 
-                readFrame @"C:\Users\hochs\source\repos\Drafo\tests\Drafo.Tests\TestFour.csv"
+                readFrame @"../../../TestFour.csv"
                 |>Frame.addCol "KeyPartTwo"(series [0=> "key1" ;1 =>"key1"])
                 
             let indexWCol = indexWithColumnValues (seq ["keys";"KeyPartTwo"]) readIn
@@ -377,8 +377,8 @@ let CoreTests =
                 numAggregat Mean indexWCol "TestColTwo" ["KeyPartTwo"] [filterForPipeline]
                 |>seriesToFrame
                 
-            let savedFrame = aggregationStep.SaveCsv (@"C:\Users\hochs\source\repos\Drafo\tests\Drafo.Tests\TestSavedOutput.csv",includeRowKeys=false,separator='\t')
-            let readInSavedFrame= readFrame(@"C:\Users\hochs\source\repos\Drafo\tests\Drafo.Tests\TestSavedOutput.csv")
+            let savedFrame = aggregationStep.SaveCsv (@"../../../TestSavedOutput.csv",includeRowKeys=false,separator='\t')
+            let readInSavedFrame= readFrame(@"../../../TestSavedOutput.csv")
             let _ = readInSavedFrame.DropColumn "KeyPartTwo"
             
             let expected = 
