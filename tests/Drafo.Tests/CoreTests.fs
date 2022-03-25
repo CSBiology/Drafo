@@ -12,6 +12,8 @@ open GroupFilter.GroupFilter
 open NumericFilter.NumericFilter
 open FSharp.Stats
 open FSharpAux
+open NumericTransform.NumericTransform
+
 
 
 let testFrame = 
@@ -264,6 +266,20 @@ let CoreTests =
                     ("Column2")=> series [(Key().addCol ("keys", "key1")).addCol("KeyPartTwo","key2") => -45.; (Key().addCol("keys", "key1")).addCol("KeyPartTwo","key3")  =>45.]
                     ]
             Expect.equal actual expected "GroupWiseNumericTransformAllCols did not return the expected value"
+            )
+        testCase "NumericTransformSingle" (fun _ ->
+            let actual =  numericTransformOneCol (Substract 5.) TestFrameWithOutColumnsForIndexing "Column1"
+            let expected =  series [ (Key().addCol ("keys", "key1")).addCol("KeyPartTwo","key2") => -4.; (Key().addCol("keys", "key1")).addCol("KeyPartTwo","key3")  => -2.]
+            Expect.equal actual expected "numericTransformOneCol did not return the expected value"
+            )
+        testCase "NumericTransformMulty" (fun _ ->
+            let actual = numericTransformAllCols (Substract 5.)TestFrameWithOutColumnsForIndexing 
+            let expected =  
+                frame [ 
+                    ("Column1")=> series [(Key().addCol ("keys", "key1")).addCol("KeyPartTwo","key2") => -4.; (Key().addCol("keys", "key1")).addCol("KeyPartTwo","key3")  => -2.]
+                    ("Column2")=> series [(Key().addCol ("keys", "key1")).addCol("KeyPartTwo","key2") => 5.; (Key().addCol("keys", "key1")).addCol("KeyPartTwo","key3")  =>95.]
+                    ]
+            Expect.equal actual expected "numericTransformAllCols did not return the expected value"
             )
         testCase "NumericFilterSingle" (fun _ ->
             let actual =  numericFilter (IsBiggerThan 2.) transformedTestFrameTwo "Column1" 
