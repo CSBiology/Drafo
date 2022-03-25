@@ -9033,10 +9033,15 @@ em {
   border-left: 4px solid #ed7d31; }
 
 #fsdocs-content table.pre, #fsdocs-content pre.fssnip, #fsdocs-content pre {
-  background-color: #303b4a;
-  color: #fafafa;
+  background-color: #303b4a !important;
+  color: #fafafa !important; 
   overflow-x: auto;
   display: block; }
+
+#fsdocs-content pre.fssnip code {
+    font: 0.85rem 'Roboto Mono', monospace;
+    font-weight: initial;
+}
 
 #fsdocs-menu::-webkit-scrollbar {
   width: 1px; }
@@ -9196,4 +9201,17 @@ div.fsdocs-tip {
 div.fsdocs-tip code {
   color: #d1d1d1;
   font: 11pt 'Droid Sans', arial, sans-serif; }
+
+div.fsdocs-tip em {
+    color: #6A9955;
+}
+
+.js-plotly-plot {
+    margin: 0 auto;
+}
+
+.__________cytoscape_container {
+    margin: 0 auto;
+}
+
 /*# sourceMappingURL=C:\Users\schne\source\repos\fslaborg\docs-template\Content\docs\content\fsdocs-custom.css.map */
