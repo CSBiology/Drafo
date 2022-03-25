@@ -207,7 +207,7 @@ testPivot.Print()
 (**
 ## module NumericAggregation
 `NumericAggregation` does either the mean, meadian or float based on your input. For that it needs a Frame
-of <Key,_> a fliter, a <seq<Series<Key,bool>>> or a <seq<seq<Series<Key,bool>>>>, that say which values should be aggregated and for a singel column a string
+of <Key,_> a fliter, a `<seq <Series <Key,bool>>>` or a `<seq <seq <Series <Key,bool>>>>`, that say which values should be aggregated and for a singel column a string
 The module has two functions either `numAgAllCol`that aggregates over all columns or `numAggregat`that agggregates one column
 The result is a Frame<Key,string>
 *)

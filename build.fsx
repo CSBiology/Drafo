@@ -62,7 +62,7 @@ module ProjectInfo =
 
     let project = "Drafo"
 
-    let summary = "A slightly updated version of Drafo with modules that can work on entire frames"
+    let summary = "Data Transformations"
 
     let configuration = "Release"
 
