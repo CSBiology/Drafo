@@ -211,8 +211,16 @@ of <Key,_> a fliter, a <seq<Series<Key,bool>>> or a <seq<seq<Series<Key,bool>>>>
 The module has two functions either `numAgAllCol`that aggregates over all columns or `numAggregat`that agggregates one column
 The result is a Frame<Key,string>
 *)
+
 (**
-## NumericTransform
+## module NumericFilter
+`NumericFilter` is a module that can say if values in a given column are bigger or smaller than a given value.
+The resultant series of the type <Key,bool>.
+The input Frame needs to be of the type Frame<Key,_>.
+The module has one function for all columns in a frame :`numericFilterServeralCol` and one for a single `columnnumericFilter`which also needs a string to determine the column
+*)
+(**
+## module NumericTransform
 The `NumericTransform` has five operations that can be done on all values in either a column(sereies) or a frame:
         | Log2
         | Substract
@@ -225,14 +233,7 @@ Both need a Frame of the type <Key,_> and a seq<string>, to determine which colu
 needs a string to determine the column.
 *)
 (**
-## module NumericFilter
-`NumericFilter` is a module that can say if values in a given column are bigger or smaller than a given value.
-The resultant series of the type <Key,bool>.
-The input Frame needs to be of the type Frame<Key,_>.
-The module has one function for all columns in a frame :`numericFilterServeralCol` and one for a single `columnnumericFilter`which also needs a string to determine the column
-*)
-(**
-## GroupWiseNumericTransform
+## moduleGroupWiseNumericTransform
 The `GroupWiseNumericTransform` has four operations:
         | DivideByMedian
         | DivideByMean  
@@ -243,13 +244,13 @@ Both need a Frame of the type <Key,_> and a seq<string>, to determine which colu
 needs a string to determine the column.
 *)
 (**
-## GroupFilter 
+## module GroupFilter 
 `Groupfilter` filters the given Frame of  <Key,_>. If a value of a Series (column), is either a bigger or lower than the given Tukey or stdev of the series than the bool is <false> otherwise it is <true>
 The end result is a Series of  Key true/false pairs or a seq of series <Key,bool> for the variant that iterats over the entire frame.
 `groupFilter` only uses one column of a Frame and `groupFilterAllCol`iterats over the entire frame
 *)
 (**
-## StringAggregation
+## module StringAggregation
 
 StrinAggregation concats string in the provied Series of <Key,string>.
 This happens based on the filter provided. 
