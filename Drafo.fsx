@@ -15,7 +15,9 @@ let seriesForFrame:Series<Key,_> =
     |>series
 let seriesToFrameTest = seriesToFrame seriesForFrame 
 seriesToFrameTest.Print()(* output: 
-*)
+One Two Value 
+0 -> 4   2   1     
+1 -> 2   5   2*)
 (**
 ## indexWithColumnValues
 
@@ -24,7 +26,13 @@ The function `indexWithColumnValues` takes the Column Keys defined in a Series t
 *)
 let seriesToFrameTestIndexed = seriesToFrame seriesForFrame |> indexWithColumnValues ["One"; "Two"]
 seriesToFrameTestIndexed.Print()(* output: 
-*)
+One Two Value 
+One: 4
+Two: 2
+ -> 4   2   1     
+One: 2
+Two: 5
+ -> 2   5   2*)
 (**
 ## getColumn
 
@@ -33,7 +41,12 @@ the function of the `getColumn` function is the equal to the the same operation 
 *)
 let getColumn2: Series<Key,string> = getColumn "Two" seriesToFrameTestIndexed
 getColumn2.Print()(* output: 
-*)
+One: 4
+Two: 2
+ -> 2 
+One: 2
+Two: 5
+ -> 5*)
 (**
 ## rowKeyToColumns
 
@@ -50,7 +63,17 @@ exmpColMajorFrameTwo.Print()
 let testRowToColumnKey = rowKeyToColumns exmpColMajorFrameTwo
 
 testRowToColumnKey.Print() (* output: 
-*)
+c1,T1,r1  c2,T1,r1  
+row1: 1
+row2: 3
+    -> 3         <missing> 
+row1: 10
+row2: 100
+ -> <missing> 100       
+
+     row1 row2 c1,T1,r1  c2,T1,r1  
+0 -> 1    3    3         <missing> 
+1 -> 10   100  <missing> 100*)
 (**
 ## createFilter
 
@@ -63,7 +86,12 @@ let boolFunction a =
     else false
 let letsCreateAFilter = createFilter boolFunction seriesForFrame
 letsCreateAFilter.Print()(* output: 
-*)
+One: 4
+Two: 2
+ -> False 
+One: 2
+Two: 5
+ -> True*)
 (**
 ## transform
 
@@ -75,7 +103,12 @@ let transformFuction a=
     else a
 let letsTransformSomeSeries = transform transformFuction seriesForFrame
 letsTransformSomeSeries.Print()(* output: 
-*)
+One: 4
+Two: 2
+ -> 0 
+One: 2
+Two: 5
+ -> 2*)
 (**
 ## zip
 
@@ -87,7 +120,12 @@ let getColumnTwo=  exmpColMajorFrameTwo|> getColumn<float> "c2,T1,r1"
 
 let zipped = zip (fun x y -> x / y) getColumnOne getColumnTwo
 zipped.Print()(* output: 
-*)
+row1: 1
+row2: 3
+    -> <missing> 
+row1: 10
+row2: 100
+ -> <missing>*)
 (**
 ## dropKeyColumns and dropAllKeyColumnsBut
 
@@ -101,10 +139,10 @@ let keyForPropertyDrop = ( newKeyTest "c1,T1,r1"  0).addCol ("LLLL",9)
 
 let dropsProperty =  dropKeyColumns seriesForPropertyDrop keyForPropertyDrop
 printfn("%O")dropsProperty(* output: 
-*)
+LLLL: 9*)
 let dropsAllPropBut =dropAllKeyColumnsBut seriesForPropertyDrop keyForPropertyDrop
 printfn("%O") dropsAllPropBut(* output: 
-*)
+c1,T1,r1: 0*)
 (**
 ## group functions
 
@@ -131,7 +169,15 @@ let operation =
 let tryGroupsTransform = groupTransform operation dropAllKeyColumnsBut seriesForPropertyDropMod seriesForFrameFloat
 
 tryGroupsTransform.Print()(* output: 
-*)
+Two: 4
+One: 2
+ -> 0    
+Two: 2
+One: 5
+ -> -0.5 
+Two: 2
+One: 7
+ -> 0.5*)
 let opFilter= 
     fun values -> 
         let mean = Seq.mean values
@@ -140,7 +186,15 @@ let opFilter=
 let tryGroupsFilter = createGroupFilter opFilter dropAllKeyColumnsBut seriesForPropertyDropMod seriesForFrameFloat
 
 tryGroupsFilter.Print()(* output: 
-*)
+Two: 4
+One: 2
+ -> True  
+Two: 2
+One: 5
+ -> True  
+Two: 2
+One: 7
+ -> False*)
 (**
 ## aggregate
 
@@ -156,7 +210,8 @@ let op =fun (x:seq<float>) -> Seq.mean x
 let aggregations = aggregate op dropAllKeyColumnsBut seriesForPropertyDropMod letsTransformAFilter seriesForFrameFloat
 
 aggregations.Print()(* output: 
-*)
+Two: 2
+ -> 2.5*)
 (**
 ## assemble
 
@@ -175,7 +230,13 @@ let assembly =
         ]
 
 assembly.Print()(* output: 
-*)
+One Two 
+Two: 1
+T: 2
+ -> 6   6   
+Two: 3
+T: 5
+ -> 9   9*)
 (**
 ## pivot
 
@@ -188,7 +249,11 @@ let testString ="One"
 let testPivot = pivot testString  seriesToFrameTestIndexed
 
 testPivot.Print()(* output: 
-*)
+4.One     4.Two     4.Value   2.One     2.Two     2.Value   
+Two: 2
+ -> 4         2         1         <missing> <missing> <missing> 
+Two: 5
+ -> <missing> <missing> <missing> 2         5         2*)
 (**
 ## module NumericAggregation
 

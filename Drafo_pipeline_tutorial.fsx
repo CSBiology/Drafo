@@ -20,7 +20,23 @@ let frameForTutorial =
 
 let indexedTutorialFrame = indexWithColumnValues ["Gen";"technicalReplicate";"BioRep"] frameForTutorial
 indexedTutorialFrame.Print()(* output: 
-*)
+ConditionA ConditionB Gen technicalReplicate BioRep 
+Gen: A
+technicalReplicate: B
+BioRep: D
+ -> 2          2.4        A   B                  D      
+Gen: A
+technicalReplicate: B
+BioRep: E
+ -> 3          4.5        A   B                  E      
+Gen: A
+technicalReplicate: C
+BioRep: D
+ -> 1          6.1        A   C                  D      
+Gen: A
+technicalReplicate: C
+BioRep: E
+ -> 7          5.1        A   C                  E*)
 (**
 !!!!
 Keep in mind that the function working on the whole frame will error should
@@ -37,7 +53,23 @@ let indexedFrameWithoutIndexingColumns =
 
 
 indexedFrameWithoutIndexingColumns.Print()(* output: 
-*)
+ConditionA ConditionB 
+Gen: A
+technicalReplicate: B
+BioRep: D
+ -> 2          2.4        
+Gen: A
+technicalReplicate: B
+BioRep: E
+ -> 3          4.5        
+Gen: A
+technicalReplicate: C
+BioRep: D
+ -> 1          6.1        
+Gen: A
+technicalReplicate: C
+BioRep: E
+ -> 7          5.1*)
 (**
 As you can see each row has multiple Key objects and the combinations are unique.
 Now one can create a filter with either the `NumericFilter` or `GroupFilter` module functions.
@@ -64,7 +96,13 @@ let seqOfFilterMulty filterOne filterTwo =
 
 let aggregatedFrameA = numAgAllCol Mean indexedFrameWithoutIndexingColumns ["Gen";"technicalReplicate"] (seqOfFilterMulty filterA filterB)
 aggregatedFrameA.Print()(* output: 
-*)
+ConditionA ConditionB 
+Gen: A
+technicalReplicate: B
+ -> 2.5        3.45       
+Gen: A
+technicalReplicate: C
+ -> 4          5.6*)
 (**
 As you can see the `BioRep` parts of the keys was dropped and we aggregated Keys that were identical.
 Now we also want to do the median of the `technicalReplicate`. For that we need new filters and need to adjust the input parameters.
@@ -75,5 +113,7 @@ let filterD = numericFilterServeralCol (IsSmallerThan 100.) aggregatedFrameA
 
 let aggregatedFrameB = numAgAllCol Median aggregatedFrameA  ["Gen"] (seqOfFilterMulty filterC filterD)
 aggregatedFrameB.Print()(* output: 
-*)
+ConditionA ConditionB 
+Gen: A
+ -> 3.25       4.525*)
 

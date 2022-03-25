@@ -47,7 +47,23 @@ let exampleFrameWithKeyCols =
 
 let indexedFrameWithKeyCols = indexWithColumnValues ["Gen";"TecRep";"BioRep"] exampleFrameWithKeyCols
 indexedFrameWithKeyCols.Print()(* output: 
-*)
+Column1 Column2 Gen TecRep BioRep 
+Gen: A
+TecRep: B
+BioRep: D
+ -> 2       4       A   B      D      
+Gen: A
+TecRep: B
+BioRep: E
+ -> 4.5     5.5     A   B      E      
+Gen: A
+TecRep: C
+BioRep: D
+ -> 3.7     6.9     A   C      D      
+Gen: A
+TecRep: C
+BioRep: E
+ -> 2.9     5       A   C      E*)
 (**
 as you can see we have now a multi tiered Key for each row that is unique. from this point one can go in several directions,
 for example one could substract or add to all values in a series(Column) with the `transform` function or one could create
@@ -56,5 +72,10 @@ filters with the modules `GroupFilter` or `NumericFilter` or the `filter` functi
 *)
 let singleColumnAggregateMean = numAggregat Mean indexedFrameWithKeyCols "Column1" ["Gen";"TecRep"] (seq [])
 singleColumnAggregateMean.Print()(* output: 
-*)
+Gen: A
+TecRep: B
+ -> 3.25 
+Gen: A
+TecRep: C
+ -> 3.3*)
 
