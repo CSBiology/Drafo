@@ -36,7 +36,6 @@ let frameForTutorial =
     ("ConditionA")=> series ["row1" => 2.;"row2" =>3.;"row3" =>1.;"row4" =>7.]
     ("ConditionB")=> series ["row1" => 2.4;"row2" =>4.5;"row3" =>6.1;"row4" =>5.1] 
   ]
-
   |>Frame.addCol "Gen"(series ["row1" => "A" ;"row2" =>"A";"row3" =>"A";"row4" =>"A"])
   |>Frame.addCol "technicalReplicate"(series ["row1" => "B" ;"row2" =>"B";"row3" =>"C";"row4" =>"C"])
   |>Frame.addCol "BioRep"(series ["row1" => "D" ;"row2" =>"E";"row3" =>"D";"row4" =>"E"])
