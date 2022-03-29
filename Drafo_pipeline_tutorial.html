@@ -238,16 +238,12 @@ from Deedle<br /><br />--------------------<br />type Frame =
   ...<br /><br />--------------------<br />new: names: seq&lt;&#39;TColumnKey&gt; * columns: seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />new: rowIndex: Indices.IIndex&lt;&#39;TRowKey&gt; * columnIndex: Indices.IIndex&lt;&#39;TColumnKey&gt; * data: IVector&lt;IVector&gt; * indexBuilder: Indices.IIndexBuilder * vectorBuilder: Vectors.IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;</div>
 <div class="fsdocs-tip" id="fs15">val addCol: column: &#39;C -&gt; series: Series&lt;&#39;R,&#39;V&gt; -&gt; frame: Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs16">val indexedTutorialFrame: Frame&lt;Key,string&gt;</div>
-<div class="fsdocs-tip" id="fs17">val indexWithColumnValues: keyCols: seq&lt;string&gt; -&gt; f: Frame&lt;&#39;a,string&gt; -&gt; Frame&lt;Key,string&gt; (requires equality)<br /><em>&lt;summary&gt;
- index a frame by selecting the columns that are used to create  row keys of type Key 
- &lt;/summary&gt;<br />&lt;param name=&quot;keyCols&quot;&gt;columns containing strings that are used for Key creation&lt;/param&gt;<br />&lt;param name=&quot;f&quot;&gt;frame which is indexed&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs17">val indexWithColumnValues: keyCols: seq&lt;string&gt; -&gt; f: Frame&lt;&#39;a,string&gt; -&gt; Frame&lt;Key,string&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs18">static member FrameExtensions.Print: frame: Frame&lt;&#39;K,&#39;V&gt; -&gt; unit (requires equality and equality)<br />static member FrameExtensions.Print: frame: Frame&lt;&#39;K,&#39;V&gt; * printTypes: bool -&gt; unit (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs19">val indexedFrameWithoutIndexingColumns: Frame&lt;Key,string&gt;</div>
 <div class="fsdocs-tip" id="fs20">val dropCol: column: &#39;C -&gt; frame: Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs21">val filterA: seq&lt;Series&lt;Key,bool&gt;&gt;</div>
-<div class="fsdocs-tip" id="fs22">val numericFilterServeralCol: filter: NumericFilter -&gt; fp: Frame&lt;Key,string&gt; -&gt; seq&lt;Series&lt;Key,bool&gt;&gt;<br /><em>&lt;summary&gt;
- creates a frame of the type Key,bool based on the values and the given filter
- &lt;/summary&gt;<br />&lt;param name=&quot;filter&quot;&gt;has the methodes IsBiggerThan and IsSmallerThan and needs a float&lt;/param&gt;<br />&lt;param name=&quot;fp&quot;&gt;frame on which the operation is used&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs22">val numericFilterServeralCol: filter: NumericFilter -&gt; fp: Frame&lt;Key,string&gt; -&gt; seq&lt;Series&lt;Key,bool&gt;&gt;</div>
 <div class="fsdocs-tip" id="fs23">union case NumericFilter.IsBiggerThan: float -&gt; NumericFilter</div>
 <div class="fsdocs-tip" id="fs24">val filterB: seq&lt;Series&lt;Key,bool&gt;&gt;</div>
 <div class="fsdocs-tip" id="fs25">union case NumericFilter.IsSmallerThan: float -&gt; NumericFilter</div>
@@ -296,9 +292,7 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
   See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/sequences&quot;&gt;F# Language Guide - Sequences&lt;/a&gt;.
 &lt;/remarks&gt;</em></div>
 <div class="fsdocs-tip" id="fs39">val aggregatedFrameA: Frame&lt;Key,string&gt;</div>
-<div class="fsdocs-tip" id="fs40">val numAgAllCol: aggregation: NumericAggregation -&gt; fp: Frame&lt;Key,string&gt; -&gt; keyC: seq&lt;string&gt; -&gt; filterCols: seq&lt;seq&lt;Series&lt;Key,bool&gt;&gt;&gt; -&gt; Frame&lt;Key,string&gt;<br /><em>&lt;summary&gt;
- aggregates floats in a frame, column by column,that have idendical row keys, after part of the key is droped. 
- &lt;/summary&gt;<br />&lt;param name=&quot;aggregation&quot;&gt;has the methodes Mean, Median and Sum&lt;/param&gt;<br />&lt;param name=&quot;fp&quot;&gt;frame on which the operation is used&lt;/param&gt;<br />&lt;param name=&quot;keyC&quot;&gt;seq of string containing the first part of Keys that shall not be dropped&lt;/param&gt;<br />&lt;param name=&quot;filterCols&quot;&gt;series of Key,bool that has the same keys as the frame&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs40">val numAgAllCol: aggregation: NumericAggregation -&gt; fp: Frame&lt;Key,string&gt; -&gt; keyC: seq&lt;string&gt; -&gt; filterCols: seq&lt;seq&lt;Series&lt;Key,bool&gt;&gt;&gt; -&gt; Frame&lt;Key,string&gt;</div>
 <div class="fsdocs-tip" id="fs41">union case NumericAggregation.Mean: NumericAggregation</div>
 <div class="fsdocs-tip" id="fs42">val filterC: seq&lt;Series&lt;Key,bool&gt;&gt;</div>
 <div class="fsdocs-tip" id="fs43">val filterD: seq&lt;Series&lt;Key,bool&gt;&gt;</div>

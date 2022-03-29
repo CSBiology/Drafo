@@ -400,41 +400,25 @@ from Deedle<br /><br />--------------------<br />type Series =
   ...<br /><br />--------------------<br />new: pairs: seq&lt;System.Collections.Generic.KeyValuePair&lt;&#39;K,&#39;V&gt;&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new: keys: seq&lt;&#39;K&gt; * values: seq&lt;&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new: keys: &#39;K[] * values: &#39;V[] -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new: index: Indices.IIndex&lt;&#39;K&gt; * vector: IVector&lt;&#39;V&gt; * vectorBuilder: Vectors.IVectorBuilder * indexBuilder: Indices.IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt;</div>
 <div class="fsdocs-tip" id="fs13">val series: observations: seq&lt;&#39;a * &#39;b&gt; -&gt; Series&lt;&#39;a,&#39;b&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs14">val seriesToFrameTest: Frame&lt;int,string&gt;</div>
-<div class="fsdocs-tip" id="fs15">val seriesToFrame: s: Series&lt;Key,&#39;a&gt; -&gt; Frame&lt;int,string&gt;<br /><em>&lt;summary&gt;
-makes a series into a frame the row Key objeckts get transfered to columns the row index are ints afterwards
- &amp;lt;summary&amp;gt;
- Makes a series of type &amp;lt;Key,_&amp;gt; into a frame of type &amp;lt;int,_&amp;gt;. The row Key objects get transfered to columns the row index are ints afterwards
- &amp;lt;/summary&amp;gt;
- &amp;lt;param name=&quot;s&quot;&amp;gt;series that is turned into a frame&amp;lt;/param&amp;gt;
-&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs15">val seriesToFrame: s: Series&lt;Key,&#39;a&gt; -&gt; Frame&lt;int,string&gt;</div>
 <div class="fsdocs-tip" id="fs16">static member FrameExtensions.Print: frame: Frame&lt;&#39;K,&#39;V&gt; -&gt; unit (requires equality and equality)<br />static member FrameExtensions.Print: frame: Frame&lt;&#39;K,&#39;V&gt; * printTypes: bool -&gt; unit (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs17">val seriesToFrameTestIndexed: Frame&lt;Key,string&gt;</div>
-<div class="fsdocs-tip" id="fs18">val indexWithColumnValues: keyCols: seq&lt;string&gt; -&gt; f: Frame&lt;&#39;a,string&gt; -&gt; Frame&lt;Key,string&gt; (requires equality)<br /><em>&lt;summary&gt;
- index a frame by selecting the columns that are used to create  row keys of type Key 
- &lt;/summary&gt;<br />&lt;param name=&quot;keyCols&quot;&gt;columns containing strings that are used for Key creation&lt;/param&gt;<br />&lt;param name=&quot;f&quot;&gt;frame which is indexed&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs18">val indexWithColumnValues: keyCols: seq&lt;string&gt; -&gt; f: Frame&lt;&#39;a,string&gt; -&gt; Frame&lt;Key,string&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs19">val getColumn2: Series&lt;Key,string&gt;</div>
 <div class="fsdocs-tip" id="fs20">Multiple items<br />val string: value: &#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;<br />&lt;example id=&quot;string-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;&lt;/code&gt;&lt;/example&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs21">val getColumn: column: string -&gt; f: Frame&lt;Key,string&gt; -&gt; Series&lt;Key,&#39;a&gt;<br /><em>&lt;summary&gt;
- Drafo version of GetColumn. get a column of a frame based on the column key
- &lt;/summary&gt;<br />&lt;param name=&quot;column&quot;&gt;string that represents the Column key&lt;/param&gt;<br />&lt;param name=&quot;f&quot;&gt;frame which contains the column &lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs21">val getColumn: column: string -&gt; f: Frame&lt;Key,string&gt; -&gt; Series&lt;Key,&#39;a&gt;</div>
 <div class="fsdocs-tip" id="fs22">static member SeriesExtensions.Print: series: Series&lt;&#39;K,&#39;V&gt; -&gt; unit (requires equality)</div>
 <div class="fsdocs-tip" id="fs23">val exmpColMajorFrameTwo: Frame&lt;Key,string&gt;</div>
 <div class="fsdocs-tip" id="fs24">val frame: columns: seq&lt;&#39;a * #ISeries&lt;&#39;c&gt;&gt; -&gt; Frame&lt;&#39;c,&#39;a&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs25">val testRowToColumnKey: Frame&lt;int,string&gt;</div>
-<div class="fsdocs-tip" id="fs26">val rowKeyToColumns: f: Frame&lt;Key,string&gt; -&gt; Frame&lt;int,string&gt;<br /><em>&lt;summary&gt;
- Changes the row keys from type Key to int un transfers the Key into columns (reverse indexWithColumnValues)
- &lt;/summary&gt;<br />&lt;param name=&quot;f&quot;&gt;frame which contains the column &lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs26">val rowKeyToColumns: f: Frame&lt;Key,string&gt; -&gt; Frame&lt;int,string&gt;</div>
 <div class="fsdocs-tip" id="fs27">val boolFunction: a: float -&gt; bool</div>
 <div class="fsdocs-tip" id="fs28">val a: float</div>
 <div class="fsdocs-tip" id="fs29">val letsCreateAFilter: Series&lt;Key,bool&gt;</div>
-<div class="fsdocs-tip" id="fs30">val createFilter: op: (&#39;a -&gt; bool) -&gt; s: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,bool&gt; (requires equality)<br /><em>&lt;summary&gt;
- turns values in a given series to into bools based on the function used
- &lt;/summary&gt;<br />&lt;param name=&quot;op&quot;&gt;function that determines what bool the value is &lt;/param&gt;<br />&lt;param name=&quot;s&quot;&gt;series on which the function is applied&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs30">val createFilter: op: (&#39;a -&gt; bool) -&gt; s: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,bool&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs31">val transformFuction: a: float -&gt; float</div>
 <div class="fsdocs-tip" id="fs32">val letsTransformSomeSeries: Series&lt;Key,float&gt;</div>
-<div class="fsdocs-tip" id="fs33">val transform: op: (&#39;a -&gt; &#39;b) -&gt; s: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,&#39;b&gt; (requires equality)<br /><em>&lt;summary&gt;
- transform values in a series with a function
- &lt;/summary&gt;<br />&lt;param name=&quot;op&quot;&gt;function that determines how the value is transformed &lt;/param&gt;<br />&lt;param name=&quot;s&quot;&gt;series on which the function is applied&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs33">val transform: op: (&#39;a -&gt; &#39;b) -&gt; s: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,&#39;b&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs34">val getColumnOne: Series&lt;Key,float&gt;</div>
 <div class="fsdocs-tip" id="fs35">Multiple items<br />val float: value: &#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
  primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
@@ -447,9 +431,7 @@ type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI t
  &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs36">val getColumnTwo: Series&lt;Key,float&gt;</div>
 <div class="fsdocs-tip" id="fs37">val zipped: Series&lt;Key,float&gt;</div>
-<div class="fsdocs-tip" id="fs38">val zip: op: (&#39;a -&gt; &#39;a -&gt; &#39;b) -&gt; s1: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; s2: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,&#39;b&gt; (requires equality)<br /><em>&lt;summary&gt;
- zips two series based on the given function.
- &lt;/summary&gt;<br />&lt;param name=&quot;op&quot;&gt;function that determines how the sereies are zipped. This function does need to take two series as parameter &lt;/param&gt;<br />&lt;param name=&quot;s1&quot;&gt;series1 on which the function is applied&lt;/param&gt;<br />&lt;param name=&quot;s2&quot;&gt;series2 on which the function is applied&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs38">val zip: op: (&#39;a -&gt; &#39;a -&gt; &#39;b) -&gt; s1: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; s2: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,&#39;b&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs39">val x: float</div>
 <div class="fsdocs-tip" id="fs40">val y: float</div>
 <div class="fsdocs-tip" id="fs41">val seriesForPropertyDrop: seq&lt;string&gt;</div>
@@ -462,13 +444,9 @@ type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI t
 &lt;/remarks&gt;</em></div>
 <div class="fsdocs-tip" id="fs43">val keyForPropertyDrop: Key</div>
 <div class="fsdocs-tip" id="fs44">val dropsProperty: Key</div>
-<div class="fsdocs-tip" id="fs45">val dropKeyColumns: keyColumns: seq&lt;string&gt; -&gt; key: Key -&gt; Key<br /><em>&lt;summary&gt;
- drops row keys of the type Key that are given in the seq of string ( you only have to give the Key part of the Key value pair
- &lt;/summary&gt;<br />&lt;param name=&quot;keyColumns&quot;&gt;seq of string containing all the first parts of Keys that should be dropped&lt;/param&gt;<br />&lt;param name=&quot;key&quot;&gt; the row keys of type Key &lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs45">val dropKeyColumns: keyColumns: seq&lt;string&gt; -&gt; key: Key -&gt; Key</div>
 <div class="fsdocs-tip" id="fs46">val dropsAllPropBut: Key</div>
-<div class="fsdocs-tip" id="fs47">val dropAllKeyColumnsBut: keyColumns: seq&lt;string&gt; -&gt; key: Key -&gt; Key<br /><em>&lt;summary&gt;
- drops row keys of the type Key that are not given in the seq of string ( you only have to give the Key part of the Key value pair
- &lt;/summary&gt;<br />&lt;param name=&quot;keyColumns&quot;&gt;seq of string containing all the first parts of Keys that should not be dropped&lt;/param&gt;<br />&lt;param name=&quot;key&quot;&gt; the row keys of type Key &lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs47">val dropAllKeyColumnsBut: keyColumns: seq&lt;string&gt; -&gt; key: Key -&gt; Key</div>
 <div class="fsdocs-tip" id="fs48">val printfn: format: Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to &lt;c&gt;stdout&lt;/c&gt; using the given format, and add a newline.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;<br />&lt;example&gt;See &lt;c&gt;Printf.printfn&lt;/c&gt; (link: &lt;see cref=&quot;M:Microsoft.FSharp.Core.PrintfModule.PrintFormatLine``1&quot; /&gt;) for examples.&lt;/example&gt;</em></div>
 <div class="fsdocs-tip" id="fs49">val seriesForFrameFloat: Series&lt;Key,float&gt;</div>
 <div class="fsdocs-tip" id="fs50">val seriesForPropertyDropMod: seq&lt;string&gt;</div>
@@ -488,23 +466,17 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
    Computes the population mean (Normalized by N)
  &lt;/summary&gt;<br />&lt;param name=&quot;items&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;remarks&gt;Returns default value if data is empty or if any entry is NaN.&lt;/remarks&gt;<br />&lt;returns&gt;population mean (Normalized by N)&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs56">val tryGroupsTransform: Series&lt;Key,float&gt;</div>
-<div class="fsdocs-tip" id="fs57">val groupTransform: op: (&#39;a[] -&gt; &#39;a -&gt; &#39;b) -&gt; modifyKeyColumns: (seq&lt;string&gt; -&gt; &#39;KeyType -&gt; &#39;a0) -&gt; keyColumns: seq&lt;string&gt; -&gt; s: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,&#39;b&gt; (requires equality and equality)<br /><em>&lt;summary&gt;
- a version of transform that works on groups in a series dropKeyColumns and dropAllKeyColumnsBut can be used for the parameter modifyKeyColumns
- &lt;/summary&gt;<br />&lt;param name=&quot;op&quot;&gt;function that takes a seq/array and a parameter of the same type and changes the parameter&lt;/param&gt;<br />&lt;param name=&quot;modifyKeyColumns&quot;&gt;modifey Key columns for example dropAllKeyColumnsBut&lt;/param&gt;<br />&lt;param name=&quot;keyColumns&quot;&gt;seq of string containing the first part of Keys for the modifyKeyColumns parameter&lt;/param&gt;<br />&lt;param name=&quot;s&quot;&gt;series on which the operations happen&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs57">val groupTransform: op: (&#39;a[] -&gt; &#39;a -&gt; &#39;b) -&gt; modifyKeyColumns: (seq&lt;string&gt; -&gt; &#39;KeyType -&gt; &#39;a0) -&gt; keyColumns: seq&lt;string&gt; -&gt; s: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,&#39;b&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs58">val opFilter: values: seq&lt;float&gt; -&gt; (float -&gt; bool)</div>
 <div class="fsdocs-tip" id="fs59">val values: seq&lt;float&gt;</div>
 <div class="fsdocs-tip" id="fs60">val mean: float</div>
 <div class="fsdocs-tip" id="fs61">val values: float</div>
 <div class="fsdocs-tip" id="fs62">val tryGroupsFilter: Series&lt;Key,bool&gt;</div>
-<div class="fsdocs-tip" id="fs63">val createGroupFilter: op: (&#39;a[] -&gt; &#39;a -&gt; bool) -&gt; modifyKeyColumns: (seq&lt;string&gt; -&gt; &#39;KeyType -&gt; &#39;a0) -&gt; keyColumns: seq&lt;string&gt; -&gt; s: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,bool&gt; (requires equality and equality)<br /><em>&lt;summary&gt;
- a version of createFilter that works on groups in a series dropKeyColumns and dropAllKeyColumnsBut can be used for the parameter modifyKeyColumns
- &lt;/summary&gt;<br />&lt;param name=&quot;op&quot;&gt;function that takes a seq/array and a parameter of the same type and returns a bool&lt;/param&gt;<br />&lt;param name=&quot;modifyKeyColumns&quot;&gt;modifey Key columns for example dropAllKeyColumnsBut&lt;/param&gt;<br />&lt;param name=&quot;keyColumns&quot;&gt;seq of string containing the first part of Keys for the modifyKeyColumns parameter&lt;/param&gt;<br />&lt;param name=&quot;s&quot;&gt;series on which the operations happen&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs63">val createGroupFilter: op: (&#39;a[] -&gt; &#39;a -&gt; bool) -&gt; modifyKeyColumns: (seq&lt;string&gt; -&gt; &#39;KeyType -&gt; &#39;a0) -&gt; keyColumns: seq&lt;string&gt; -&gt; s: Series&lt;&#39;KeyType,&#39;a&gt; -&gt; Series&lt;&#39;KeyType,bool&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs64">val letsTransformAFilter: seq&lt;Series&lt;Key,bool&gt;&gt;</div>
 <div class="fsdocs-tip" id="fs65">val op: x: seq&lt;float&gt; -&gt; float</div>
 <div class="fsdocs-tip" id="fs66">val aggregations: Series&lt;Key,float&gt;</div>
-<div class="fsdocs-tip" id="fs67">val aggregate: op: (seq&lt;&#39;A&gt; -&gt; &#39;C) -&gt; modifyKeyColumns: (seq&lt;string&gt; -&gt; Key -&gt; Key) -&gt; keyColumns: seq&lt;string&gt; -&gt; filters: seq&lt;Series&lt;Key,bool&gt;&gt; -&gt; col: Series&lt;Key,&#39;A&gt; -&gt; Series&lt;Key,&#39;C&gt;<br /><em>&lt;summary&gt;
- aggregates values if the Keys ar identical in a series dropKeyColumns and dropAllKeyColumnsBut can be used for the parameter modifyKeyColumns
- &lt;/summary&gt;<br />&lt;param name=&quot;op&quot;&gt;function that takes a seq und returns a singel value examples are mean and median&lt;/param&gt;<br />&lt;param name=&quot;modifyKeyColumns&quot;&gt;modifey Key columns for example dropAllKeyColumnsBut&lt;/param&gt;<br />&lt;param name=&quot;keyColumns&quot;&gt;seq of string containing the first part of Keys for the modifyKeyColumns parameter&lt;/param&gt;<br />&lt;param name=&quot;filters&quot;&gt;series of Key,bool that has the same keys as col&lt;/param&gt;<br />&lt;param name=&quot;col&quot;&gt;series on which the operations happen&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs67">val aggregate: op: (seq&lt;&#39;A&gt; -&gt; &#39;C) -&gt; modifyKeyColumns: (seq&lt;string&gt; -&gt; Key -&gt; Key) -&gt; keyColumns: seq&lt;string&gt; -&gt; filters: seq&lt;Series&lt;Key,bool&gt;&gt; -&gt; col: Series&lt;Key,&#39;A&gt; -&gt; Series&lt;Key,&#39;C&gt;</div>
 <div class="fsdocs-tip" id="fs68">val forKeySeriesOne: Series&lt;Key,int&gt;</div>
 <div class="fsdocs-tip" id="fs69">Multiple items<br />val int: value: &#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
  primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
@@ -517,9 +489,7 @@ type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;se
  &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs70">val forKeySeriesTwo: Series&lt;Key,int&gt;</div>
 <div class="fsdocs-tip" id="fs71">val assembly: Frame&lt;Key,string&gt;</div>
-<div class="fsdocs-tip" id="fs72">val assemble: cols: seq&lt;string * #ISeries&lt;Key&gt;&gt; -&gt; Frame&lt;Key,string&gt;<br /><em>&lt;summary&gt;
- turn series into frames while keeping the Key objects.
- &lt;/summary&gt;<br />&lt;param name=&quot;cols&quot;&gt;#ISeries Key, can be cast from a series of Key,_,  which is turned into a frame&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs72">val assemble: cols: seq&lt;string * #ISeries&lt;Key&gt;&gt; -&gt; Frame&lt;Key,string&gt;</div>
 <div class="fsdocs-tip" id="fs73">type ISeries&lt;&#39;K (requires equality)&gt; =
   abstract TryGetObject: &#39;K -&gt; OptionalValue&lt;obj&gt;
   abstract Index: IIndex&lt;&#39;K&gt;
@@ -527,9 +497,7 @@ type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;se
   abstract VectorBuilder: IVectorBuilder</div>
 <div class="fsdocs-tip" id="fs74">val testString: string</div>
 <div class="fsdocs-tip" id="fs75">val testPivot: Frame&lt;Key,string&gt;</div>
-<div class="fsdocs-tip" id="fs76">val pivot: pivotCol: string -&gt; assembeledFrame: Frame&lt;Key,string&gt; -&gt; Frame&lt;Key,string&gt;<br /><em>&lt;summary&gt;
- pivot the Key, given as a string, of the given frame 
- &lt;/summary&gt;<br />&lt;param name=&quot;pivotCol&quot;&gt;string that denotes which Key object is used for pivoting &lt;/param&gt;<br />&lt;param name=&quot;assembeledFrame&quot;&gt;frame on which the operation happens&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs76">val pivot: pivotCol: string -&gt; assembeledFrame: Frame&lt;Key,string&gt; -&gt; Frame&lt;Key,string&gt;</div>
 
     </div>
 
