@@ -84,63 +84,72 @@
             <div class="section pt-4">
                 <div class="container" id="fsdocs-content">
                     <h1><a name="Drafo-documentation" class="anchor" href="#Drafo-documentation">Drafo documentation</a></h1>
-<p>This library adds a DynamicObject called <Key> that can be used as row key of Deedle frames and series.</p>
-<p>The functions in this library all either create frames with <Key> objects or work with frames or series that have <Key> objects.</p>
-<p>The modules allow for easy creation of filters und processing of either series or frames.</p>
+<p>This library adds a DynamicObject called <Key> that can be used as row key of Deedle frames and series.
+The functions in this library all either create frames with <Key> objects or work with frames or series that have <Key> objects.
+The modules allow for easy creation of filters und processing of either series or frames.</p>
 <h4><a name="Table-of-contents" class="anchor" href="#Table-of-contents">Table of contents</a></h4>
 <ul>
-<li><p><a href="#Installation">Installation</a></p></li>
-<li><p><a href="#Usage">Usage</a></p></li>
-<li><p><a href="#Example">Example</a></p></li>
+<li><a href="#Installation">Installation</a></li>
+<li><a href="#Usage">Usage</a></li>
+<li><a href="#Example">Example</a></li>
 </ul>
 <h2><a name="Installation" class="anchor" href="#Installation">Installation</a></h2>
 <p>This library is available as nuget package(from <a href="">nuget</a>):</p>
 <h2><a name="Usage" class="anchor" href="#Usage">Usage</a></h2>
-<p>Add the NuGet package as reference and open Drafo/Drafo.Core and any module you want to use.</p>
-<p>Because Drafo is build on Deedle it is highly recommended to use Deedle too.</p>
-<p>You can create your own frame, with <Key> objects as row keys, transform existing frames into frames that have <Key> objects</p>
-<p>or read in csv files and then transform them.</p>
+<p>Add the NuGet package as reference and open Drafo/Drafo.Core and any module you want to use.
+Because Drafo is build on Deedle it is highly recommended to use Deedle too.</p>
+<p>You can create your own frame, with <Key> objects as row keys, transform existing frames into frames that have <Key> objects
+or read in csv files and then transform them.</p>
 <p>Then one can use the functions in the Drafo core or the modules to manipulate series or frames that have <Key> as row keys.</p>
 <h2><a name="Example" class="anchor" href="#Example">Example</a></h2>
-<p>We have frame of floats that we use some operations of the Drafo library on. So first we have to index it,</p>
-<p>for that we have to add columns that that are turned into <Keys>.</p>
+<p>We have frame of floats that we use some operations of the Drafo library on. So first we have to index it,
+for that we have to add columns that that are turned into <Keys>.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="id">exampleFrame</span> <span class="o">=</span> 
+  <span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="fn">frame</span> <span class="pn">[</span>
+    <span class="pn">(</span><span class="s">&quot;Column1&quot;</span><span class="pn">)</span><span class="o">=&gt;</span><span onmouseout="hideTip(event, 'fs11', 11)" onmouseover="showTip(event, 'fs11', 11)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="n">2.</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="n">4.5</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="n">3.7</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="n">2.9</span><span class="pn">]</span>
+    <span class="pn">(</span><span class="s">&quot;Column2&quot;</span><span class="pn">)</span><span class="o">=&gt;</span><span onmouseout="hideTip(event, 'fs11', 12)" onmouseover="showTip(event, 'fs11', 12)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="n">4.</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="n">5.5</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="n">6.9</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="n">5.</span><span class="pn">]</span>
+  <span class="pn">]</span>
 
-<span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="fn">frame</span> <span class="pn">[</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 13)" onmouseover="showTip(event, 'fs12', 13)" class="id">exampleFrameWithKeyCols</span> <span class="o">=</span>
+  <span onmouseout="hideTip(event, 'fs9', 14)" onmouseover="showTip(event, 'fs9', 14)" class="id">exampleFrame</span>
+  <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="id">addCol</span> <span class="s">&quot;Gen&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">]</span><span class="pn">)</span>
+  <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="id">addCol</span> <span class="s">&quot;TecRep&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs11', 20)" onmouseover="showTip(event, 'fs11', 20)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="s">&quot;B&quot;</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="s">&quot;B&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="s">&quot;C&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="s">&quot;C&quot;</span><span class="pn">]</span><span class="pn">)</span>
+  <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="id">addCol</span> <span class="s">&quot;BioRep&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs11', 23)" onmouseover="showTip(event, 'fs11', 23)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="s">&quot;D&quot;</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="s">&quot;E&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="s">&quot;D&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="s">&quot;E&quot;</span><span class="pn">]</span><span class="pn">)</span>
 
-<span class="pn">(</span><span class="s">&quot;Column1&quot;</span><span class="pn">)</span><span class="o">=&gt;</span><span onmouseout="hideTip(event, 'fs11', 11)" onmouseover="showTip(event, 'fs11', 11)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="n">2.</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="n">4.5</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="n">3.7</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="n">2.9</span><span class="pn">]</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 24)" onmouseover="showTip(event, 'fs15', 24)" class="id">indexedFrameWithKeyCols</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="fn">indexWithColumnValues</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">;</span><span class="s">&quot;TecRep&quot;</span><span class="pn">;</span><span class="s">&quot;BioRep&quot;</span><span class="pn">]</span> <span onmouseout="hideTip(event, 'fs12', 26)" onmouseover="showTip(event, 'fs12', 26)" class="id">exampleFrameWithKeyCols</span>
 
-<span class="pn">(</span><span class="s">&quot;Column2&quot;</span><span class="pn">)</span><span class="o">=&gt;</span><span onmouseout="hideTip(event, 'fs11', 12)" onmouseover="showTip(event, 'fs11', 12)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="n">4.</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="n">5.5</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="n">6.9</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="n">5.</span><span class="pn">]</span>
-
-<span class="pn">]</span>
-
-
-
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 13)" onmouseover="showTip(event, 'fs12', 13)" class="fn">exampleFrameWithKeyCols</span> <span class="o">=</span>
-
-<span class="id">exampleFrame</span>
-
-<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs13', 14)" onmouseover="showTip(event, 'fs13', 14)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 15)" onmouseover="showTip(event, 'fs14', 15)" class="id">addCol</span> <span class="s">&quot;Gen&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">]</span><span class="pn">)</span>
-
-<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="id">addCol</span> <span class="s">&quot;TecRep&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs11', 19)" onmouseover="showTip(event, 'fs11', 19)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="s">&quot;B&quot;</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="s">&quot;B&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="s">&quot;C&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="s">&quot;C&quot;</span><span class="pn">]</span><span class="pn">)</span>
-
-<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs13', 20)" onmouseover="showTip(event, 'fs13', 20)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 21)" onmouseover="showTip(event, 'fs14', 21)" class="id">addCol</span> <span class="s">&quot;BioRep&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs11', 22)" onmouseover="showTip(event, 'fs11', 22)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="s">&quot;D&quot;</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="s">&quot;E&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="s">&quot;D&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="s">&quot;E&quot;</span><span class="pn">]</span><span class="pn">)</span>
-
-
-
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="fn">indexedFrameWithKeyCols</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="fn">indexWithColumnValues</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">;</span><span class="s">&quot;TecRep&quot;</span><span class="pn">;</span><span class="s">&quot;BioRep&quot;</span><span class="pn">]</span> <span class="id">exampleFrameWithKeyCols</span>
-
-<span onmouseout="hideTip(event, 'fs15', 25)" onmouseover="showTip(event, 'fs15', 25)" class="fn">indexedFrameWithKeyCols</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs17', 26)" onmouseover="showTip(event, 'fs17', 26)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs15', 27)" onmouseover="showTip(event, 'fs15', 27)" class="id">indexedFrameWithKeyCols</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs17', 28)" onmouseover="showTip(event, 'fs17', 28)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
-<p>as you can see, we have now a multi-tiered Key for each row that is unique. from this point one can go in several directions,</p>
-<p>for example, one could subtract or add to all values in a series (Column) with the <code>transform</code> function or one could create</p>
-<p>filters with the modules <code>GroupFilter</code> or <code>NumericFilter</code> or the <code>filter</code> function. Here we want to aggregate a single column.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="fn">singleColumnAggregateMean</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="fn">numAggregat</span> <span onmouseout="hideTip(event, 'fs20', 29)" onmouseover="showTip(event, 'fs20', 29)" class="uc">Mean</span> <span onmouseout="hideTip(event, 'fs15', 30)" onmouseover="showTip(event, 'fs15', 30)" class="fn">indexedFrameWithKeyCols</span> <span class="s">&quot;Column1&quot;</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">;</span><span class="s">&quot;TecRep&quot;</span><span class="pn">]</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs21', 31)" onmouseover="showTip(event, 'fs21', 31)" class="fn">seq</span> <span class="pn">[</span><span class="pn">]</span><span class="pn">)</span>
+<table class="pre"><tr><td><pre><code>Column1 Column2 Gen TecRep BioRep 
+Gen: A
+TecRep: B
+BioRep: D
+ -&gt; 2       4       A   B      D      
+Gen: A
+TecRep: B
+BioRep: E
+ -&gt; 4.5     5.5     A   B      E      
+Gen: A
+TecRep: C
+BioRep: D
+ -&gt; 3.7     6.9     A   C      D      
+Gen: A
+TecRep: C
+BioRep: E
+ -&gt; 2.9     5       A   C      E</code></pre></td></tr></table>
+<p>as you can see, we have now a multi-tiered Key for each row that is unique. from this point one can go in several directions,
+for example, one could subtract or add to all values in a series (Column) with the <code>transform</code> function or one could create
+filters with the modules <code>GroupFilter</code> or <code>NumericFilter</code> or the <code>filter</code> function. Here we want to aggregate a single column.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 29)" onmouseover="showTip(event, 'fs18', 29)" class="id">singleColumnAggregateMean</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="fn">numAggregat</span> <span onmouseout="hideTip(event, 'fs20', 31)" onmouseover="showTip(event, 'fs20', 31)" class="uc">Mean</span> <span onmouseout="hideTip(event, 'fs15', 32)" onmouseover="showTip(event, 'fs15', 32)" class="id">indexedFrameWithKeyCols</span> <span class="s">&quot;Column1&quot;</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">;</span><span class="s">&quot;TecRep&quot;</span><span class="pn">]</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="fn">seq</span> <span class="pn">[</span><span class="pn">]</span><span class="pn">)</span>
 
-<span onmouseout="hideTip(event, 'fs18', 32)" onmouseover="showTip(event, 'fs18', 32)" class="fn">singleColumnAggregateMean</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 33)" onmouseover="showTip(event, 'fs22', 33)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs18', 34)" onmouseover="showTip(event, 'fs18', 34)" class="id">singleColumnAggregateMean</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 35)" onmouseover="showTip(event, 'fs22', 35)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>Gen: A
+TecRep: B
+ -&gt; 3.25 
+Gen: A
+TecRep: C
+ -&gt; 3.3</code></pre></td></tr></table>
 
                 </div>
             </div>
@@ -157,10 +166,10 @@ from Drafo</div>
 <div class="fsdocs-tip" id="fs8">module NumericAggregation
 
 from NumericAggregation</div>
-<div class="fsdocs-tip" id="fs9">val exampleFrame: obj</div>
+<div class="fsdocs-tip" id="fs9">val exampleFrame: Frame&lt;string,string&gt;</div>
 <div class="fsdocs-tip" id="fs10">val frame: columns: seq&lt;&#39;a * #ISeries&lt;&#39;c&gt;&gt; -&gt; Frame&lt;&#39;c,&#39;a&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs11">val series: observations: seq&lt;&#39;a * &#39;b&gt; -&gt; Series&lt;&#39;a,&#39;b&gt; (requires equality)</div>
-<div class="fsdocs-tip" id="fs12">val exampleFrameWithKeyCols: unit</div>
+<div class="fsdocs-tip" id="fs12">val exampleFrameWithKeyCols: Frame&lt;string,string&gt;</div>
 <div class="fsdocs-tip" id="fs13">Multiple items<br />module Frame
 
 from Deedle<br /><br />--------------------<br />type Frame =
