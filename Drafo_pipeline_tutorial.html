@@ -83,114 +83,108 @@
             <div class="section pt-4">
                 <div class="container" id="fsdocs-content">
                     <h2><a name="Example-workflow" class="anchor" href="#Example-workflow">Example workflow</a></h2>
-<p>If one has a csv that contains the data the first question is whether the frame contains columns that are needed for the indexing.
-Should this be the case one can use the <code>readAndIndexFrame</code>, is that not the case one has first to readin the frame with
-<code>readFrame</code> add the columns that are neaded for indexing and then index with <code>indexWithColumnValues</code>.
-You will need to index with at least 2 columns should you wish to <code>aggregate</code> because then can have the same Key
-value paires in one column as needed/wished for the aggregation. Each time you want to aggregate means you have to have an additional column
-for the indexing. Keep in mind that you can use funtions of the <code>GroupTransform</code> module as often as you want because the row keys are not changed.In this example we go with 2 aggregations because we have biological and technical replicates.</p>
+<p>If one has a csv that contains the data, the first question is whether the frame contains columns that are needed for the indexing.</p>
+<p>Should this be the case one can use the <code>readAndIndexFrame</code>, is that not the case one has first to reading the frame with</p>
+<p><code>readFrame</code> add the columns that are needed for indexing and then index with <code>indexWithColumnValues</code>.</p>
+<p>You will need to index with at least 2 columns should you wish to <code>aggregate</code> because then can have the same Key</p>
+<p>value pairs in one column as needed/wished for the aggregation. Each time you want to aggregate means you have to have an additional column</p>
+<p>for the indexing. Keep in mind that you can use functions of the <code>GroupTransform</code> module as often as you want because the row keys are not changed. In this example we go with 2 aggregations because we have biological and technical replicates.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 11)" onmouseover="showTip(event, 'fs11', 11)" class="id">frameForTutorial</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs12', 12)" onmouseover="showTip(event, 'fs12', 12)" class="fn">frame</span> <span class="pn">[</span>
-        <span class="pn">(</span><span class="s">&quot;ConditionA&quot;</span><span class="pn">)</span><span class="o">=&gt;</span> <span onmouseout="hideTip(event, 'fs13', 13)" onmouseover="showTip(event, 'fs13', 13)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="n">2.</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="n">3.</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="n">1.</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="n">7.</span><span class="pn">]</span>
-        <span class="pn">(</span><span class="s">&quot;ConditionB&quot;</span><span class="pn">)</span><span class="o">=&gt;</span> <span onmouseout="hideTip(event, 'fs13', 14)" onmouseover="showTip(event, 'fs13', 14)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="n">2.4</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="n">4.5</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="n">6.1</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="n">5.1</span><span class="pn">]</span>    
-    <span class="pn">]</span>
-    <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 15)" onmouseover="showTip(event, 'fs14', 15)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 16)" onmouseover="showTip(event, 'fs15', 16)" class="id">addCol</span> <span class="s">&quot;Gen&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;A&quot;</span> <span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">]</span><span class="pn">)</span>
-    <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="id">addCol</span> <span class="s">&quot;technicalReplicate&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs13', 20)" onmouseover="showTip(event, 'fs13', 20)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;B&quot;</span> <span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;B&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;C&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;C&quot;</span><span class="pn">]</span><span class="pn">)</span>
-    <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 21)" onmouseover="showTip(event, 'fs14', 21)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 22)" onmouseover="showTip(event, 'fs15', 22)" class="id">addCol</span> <span class="s">&quot;BioRep&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs13', 23)" onmouseover="showTip(event, 'fs13', 23)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;D&quot;</span> <span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;E&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;D&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;E&quot;</span><span class="pn">]</span><span class="pn">)</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="id">indexedTutorialFrame</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="fn">indexWithColumnValues</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">;</span><span class="s">&quot;technicalReplicate&quot;</span><span class="pn">;</span><span class="s">&quot;BioRep&quot;</span><span class="pn">]</span> <span onmouseout="hideTip(event, 'fs11', 26)" onmouseover="showTip(event, 'fs11', 26)" class="id">frameForTutorial</span>
-<span onmouseout="hideTip(event, 'fs16', 27)" onmouseover="showTip(event, 'fs16', 27)" class="id">indexedTutorialFrame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 28)" onmouseover="showTip(event, 'fs18', 28)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs12', 12)" onmouseover="showTip(event, 'fs12', 12)" class="fn">frame</span> <span class="pn">[</span>
+
+<span class="pn">(</span><span class="s">&quot;ConditionA&quot;</span><span class="pn">)</span><span class="o">=&gt;</span> <span onmouseout="hideTip(event, 'fs13', 13)" onmouseover="showTip(event, 'fs13', 13)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="n">2.</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="n">3.</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="n">1.</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="n">7.</span><span class="pn">]</span>
+
+<span class="pn">(</span><span class="s">&quot;ConditionB&quot;</span><span class="pn">)</span><span class="o">=&gt;</span> <span onmouseout="hideTip(event, 'fs13', 14)" onmouseover="showTip(event, 'fs13', 14)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="n">2.4</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="n">4.5</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="n">6.1</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="n">5.1</span><span class="pn">]</span> 
+
+<span class="pn">]</span>
+
+<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 15)" onmouseover="showTip(event, 'fs14', 15)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 16)" onmouseover="showTip(event, 'fs15', 16)" class="id">addCol</span> <span class="s">&quot;Gen&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;A&quot;</span> <span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;A&quot;</span><span class="pn">]</span><span class="pn">)</span>
+
+<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="id">addCol</span> <span class="s">&quot;technicalReplicate&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs13', 20)" onmouseover="showTip(event, 'fs13', 20)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;B&quot;</span> <span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;B&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;C&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;C&quot;</span><span class="pn">]</span><span class="pn">)</span>
+
+<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 21)" onmouseover="showTip(event, 'fs14', 21)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 22)" onmouseover="showTip(event, 'fs15', 22)" class="id">addCol</span> <span class="s">&quot;BioRep&quot;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs13', 23)" onmouseover="showTip(event, 'fs13', 23)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;D&quot;</span> <span class="pn">;</span><span class="s">&quot;row2&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;E&quot;</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;D&quot;</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span> <span class="o">=&gt;</span><span class="s">&quot;E&quot;</span><span class="pn">]</span><span class="pn">)</span>
+
+
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="fn">indexedTutorialFrame</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="fn">indexWithColumnValues</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">;</span><span class="s">&quot;technicalReplicate&quot;</span><span class="pn">;</span><span class="s">&quot;BioRep&quot;</span><span class="pn">]</span> <span class="id">frameForTutorial</span>
+
+<span onmouseout="hideTip(event, 'fs16', 26)" onmouseover="showTip(event, 'fs16', 26)" class="fn">indexedTutorialFrame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>ConditionA ConditionB Gen technicalReplicate BioRep 
-Gen: A
-technicalReplicate: B
-BioRep: D
- -&gt; 2          2.4        A   B                  D      
-Gen: A
-technicalReplicate: B
-BioRep: E
- -&gt; 3          4.5        A   B                  E      
-Gen: A
-technicalReplicate: C
-BioRep: D
- -&gt; 1          6.1        A   C                  D      
-Gen: A
-technicalReplicate: C
-BioRep: E
- -&gt; 7          5.1        A   C                  E</code></pre></td></tr></table>
-<p>!!!!
-Keep in mind that the function working on the whole frame will error should
-you have strings as values inside the frame for the <code>NumericAggregation</code> function or ints/floats for the <code>StringAggregation</code>.
-So remove the values/columns or use the single column versions multiple times.
-!!!!</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 29)" onmouseover="showTip(event, 'fs19', 29)" class="id">indexedFrameWithoutIndexingColumns</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs16', 30)" onmouseover="showTip(event, 'fs16', 30)" class="id">indexedTutorialFrame</span>
-    <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 31)" onmouseover="showTip(event, 'fs14', 31)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="id">dropCol</span> <span class="s">&quot;Gen&quot;</span>
-    <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 33)" onmouseover="showTip(event, 'fs14', 33)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs20', 34)" onmouseover="showTip(event, 'fs20', 34)" class="id">dropCol</span> <span class="s">&quot;technicalReplicate&quot;</span>
-    <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 35)" onmouseover="showTip(event, 'fs14', 35)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs20', 36)" onmouseover="showTip(event, 'fs20', 36)" class="id">dropCol</span> <span class="s">&quot;BioRep&quot;</span>
+<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<p>!!!!</p>
+<p>Keep in mind that the function working on the whole frame will error should</p>
+<p>you have strings as values inside the frame for the <code>NumericAggregation</code> function or ints/floats for the <code>StringAggregation</code>.</p>
+<p>So remove the values/columns or use the single column versions multiple times.</p>
+<p>!!!!</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="fn">indexedFrameWithoutIndexingColumns</span> <span class="o">=</span> 
+
+<span onmouseout="hideTip(event, 'fs16', 29)" onmouseover="showTip(event, 'fs16', 29)" class="fn">indexedTutorialFrame</span>
+
+<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 30)" onmouseover="showTip(event, 'fs14', 30)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs20', 31)" onmouseover="showTip(event, 'fs20', 31)" class="id">dropCol</span> <span class="s">&quot;Gen&quot;</span>
+
+<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 32)" onmouseover="showTip(event, 'fs14', 32)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs20', 33)" onmouseover="showTip(event, 'fs20', 33)" class="id">dropCol</span> <span class="s">&quot;technicalReplicate&quot;</span>
+
+<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs14', 34)" onmouseover="showTip(event, 'fs14', 34)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs20', 35)" onmouseover="showTip(event, 'fs20', 35)" class="id">dropCol</span> <span class="s">&quot;BioRep&quot;</span>
 
 
-<span onmouseout="hideTip(event, 'fs19', 37)" onmouseover="showTip(event, 'fs19', 37)" class="id">indexedFrameWithoutIndexingColumns</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 38)" onmouseover="showTip(event, 'fs18', 38)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
+
+
+
+<span onmouseout="hideTip(event, 'fs19', 36)" onmouseover="showTip(event, 'fs19', 36)" class="id">indexedFrameWithoutIndexingColumns</span><span class="pn">.</span><span class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>ConditionA ConditionB 
-Gen: A
-technicalReplicate: B
-BioRep: D
- -&gt; 2          2.4        
-Gen: A
-technicalReplicate: B
-BioRep: E
- -&gt; 3          4.5        
-Gen: A
-technicalReplicate: C
-BioRep: D
- -&gt; 1          6.1        
-Gen: A
-technicalReplicate: C
-BioRep: E
- -&gt; 7          5.1</code></pre></td></tr></table>
-<p>As you can see each row has multiple Key objects and the combinations are unique.
-Now one can create a filter with either the <code>NumericFilter</code> or <code>GroupFilter</code> module functions.
-to use the resultant series<Key,bool> or seq series<Key,bool> one has to keep in mind that the functions in the
-<code>NumericAggregation</code> and <code>StringAggregation</code> modules need for each column a seq of series<Key,bool>, so one needs
-to create a seq of seq of series<Key,bool> for the function that affect the whole frame. If not done correctly this could
-result in an error(an empty filter is not suitable for the functions working on the whole frame!).
-When you have a suitable seq of series<Key,bool> or seq of seq of series<Key,bool> then one can then use
-the aggregation module of choice.
-Let's look back at our example with filters that filters would always say true, we want the Mean and we use the seq ["Gen";"technicalReplicate"] to determine that Rep.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 39)" onmouseover="showTip(event, 'fs21', 39)" class="id">filterA</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 40)" onmouseover="showTip(event, 'fs22', 40)" class="fn">numericFilterServeralCol</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs23', 41)" onmouseover="showTip(event, 'fs23', 41)" class="uc">IsBiggerThan</span> <span class="n">0.5</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs19', 42)" onmouseover="showTip(event, 'fs19', 42)" class="id">indexedFrameWithoutIndexingColumns</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 43)" onmouseover="showTip(event, 'fs24', 43)" class="id">filterB</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 44)" onmouseover="showTip(event, 'fs22', 44)" class="fn">numericFilterServeralCol</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs25', 45)" onmouseover="showTip(event, 'fs25', 45)" class="uc">IsSmallerThan</span> <span class="n">100.</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs19', 46)" onmouseover="showTip(event, 'fs19', 46)" class="id">indexedFrameWithoutIndexingColumns</span>
+<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<p>As you can see each row has multiple Key objects and the combinations are unique.</p>
+<p>Now one can create a filter with either the <code>NumericFilter</code> or <code>GroupFilter</code> module functions.</p>
+<p>to use the resultant series<Key,bool> or seq series<Key,bool> one has to keep in mind that the functions in the</p>
+<p><code>NumericAggregation</code> and <code>StringAggregation</code> modules need for each column a seq of series<Key,bool>, so one needs</p>
+<p>to create a seq of seq of series<Key,bool> for the function that affect the whole frame. If not done correctly this could</p>
+<p>result in an error(an empty filter is not suitable for the functions working on the whole frame!).</p>
+<p>When you have a suitable seq of series<Key,bool> or seq of seq of series<Key,bool> then one can then use</p>
+<p>the aggregation module of choice.</p>
+<p>Let's look back at our example with filters that filters would always say true, we want the Mean, and we use the seq ["Gen";"technicalReplicate"] to determine that Rep.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 37)" onmouseover="showTip(event, 'fs21', 37)" class="fn">filterA</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 38)" onmouseover="showTip(event, 'fs22', 38)" class="fn">numericFilterServeralCol</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="uc">IsBiggerThan</span> <span class="n">0.5</span><span class="pn">)</span> <span class="id">indexedFrameWithoutIndexingColumns</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 47)" onmouseover="showTip(event, 'fs26', 47)" class="fn">seqOfFilterMulty</span> <span onmouseout="hideTip(event, 'fs27', 48)" onmouseover="showTip(event, 'fs27', 48)" class="fn">filterOne</span> <span onmouseout="hideTip(event, 'fs28', 49)" onmouseover="showTip(event, 'fs28', 49)" class="fn">filterTwo</span> <span class="o">=</span>  
-    <span onmouseout="hideTip(event, 'fs27', 50)" onmouseover="showTip(event, 'fs27', 50)" class="fn">filterOne</span>
-    <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs29', 51)" onmouseover="showTip(event, 'fs29', 51)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs30', 52)" onmouseover="showTip(event, 'fs30', 52)" class="id">mapi</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs31', 53)" onmouseover="showTip(event, 'fs31', 53)" class="fn">i</span> <span onmouseout="hideTip(event, 'fs32', 54)" onmouseover="showTip(event, 'fs32', 54)" class="fn">x</span> <span class="k">-&gt;</span> 
-        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 55)" onmouseover="showTip(event, 'fs33', 55)" class="fn">colKeysForSeq</span> <span onmouseout="hideTip(event, 'fs34', 56)" onmouseover="showTip(event, 'fs34', 56)" class="fn">seqIt</span> <span onmouseout="hideTip(event, 'fs35', 57)" onmouseover="showTip(event, 'fs35', 57)" class="fn">b</span><span class="o">=</span> 
-            <span onmouseout="hideTip(event, 'fs34', 58)" onmouseover="showTip(event, 'fs34', 58)" class="fn">seqIt</span>
-            <span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs29', 59)" onmouseover="showTip(event, 'fs29', 59)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 60)" onmouseover="showTip(event, 'fs36', 60)" class="id">item</span> <span onmouseout="hideTip(event, 'fs35', 61)" onmouseover="showTip(event, 'fs35', 61)" class="fn">b</span>
-        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 62)" onmouseover="showTip(event, 'fs37', 62)" class="fn">cIII</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs38', 63)" onmouseover="showTip(event, 'fs38', 63)" class="fn">seq</span> <span class="pn">[</span><span onmouseout="hideTip(event, 'fs32', 64)" onmouseover="showTip(event, 'fs32', 64)" class="fn">x</span><span class="pn">;</span><span onmouseout="hideTip(event, 'fs33', 65)" onmouseover="showTip(event, 'fs33', 65)" class="fn">colKeysForSeq</span> <span onmouseout="hideTip(event, 'fs28', 66)" onmouseover="showTip(event, 'fs28', 66)" class="fn">filterTwo</span> <span onmouseout="hideTip(event, 'fs31', 67)" onmouseover="showTip(event, 'fs31', 67)" class="fn">i</span><span class="pn">]</span>
-        <span onmouseout="hideTip(event, 'fs37', 68)" onmouseover="showTip(event, 'fs37', 68)" class="fn">cIII</span><span class="pn">)</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="fn">filterB</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 41)" onmouseover="showTip(event, 'fs22', 41)" class="fn">numericFilterServeralCol</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs25', 42)" onmouseover="showTip(event, 'fs25', 42)" class="uc">IsSmallerThan</span> <span class="n">100.</span><span class="pn">)</span> <span class="id">indexedFrameWithoutIndexingColumns</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 69)" onmouseover="showTip(event, 'fs39', 69)" class="id">aggregatedFrameA</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 70)" onmouseover="showTip(event, 'fs40', 70)" class="fn">numAgAllCol</span> <span onmouseout="hideTip(event, 'fs41', 71)" onmouseover="showTip(event, 'fs41', 71)" class="uc">Mean</span> <span onmouseout="hideTip(event, 'fs19', 72)" onmouseover="showTip(event, 'fs19', 72)" class="id">indexedFrameWithoutIndexingColumns</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">;</span><span class="s">&quot;technicalReplicate&quot;</span><span class="pn">]</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs26', 73)" onmouseover="showTip(event, 'fs26', 73)" class="fn">seqOfFilterMulty</span> <span onmouseout="hideTip(event, 'fs21', 74)" onmouseover="showTip(event, 'fs21', 74)" class="id">filterA</span> <span onmouseout="hideTip(event, 'fs24', 75)" onmouseover="showTip(event, 'fs24', 75)" class="id">filterB</span><span class="pn">)</span>
-<span onmouseout="hideTip(event, 'fs39', 76)" onmouseover="showTip(event, 'fs39', 76)" class="id">aggregatedFrameA</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 77)" onmouseover="showTip(event, 'fs18', 77)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
+
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 43)" onmouseover="showTip(event, 'fs26', 43)" class="fn">seqOfFilterMulty</span> <span onmouseout="hideTip(event, 'fs27', 44)" onmouseover="showTip(event, 'fs27', 44)" class="fn">filterOne</span> <span onmouseout="hideTip(event, 'fs28', 45)" onmouseover="showTip(event, 'fs28', 45)" class="fn">filterTwo</span> <span class="o">=</span> 
+
+<span onmouseout="hideTip(event, 'fs27', 46)" onmouseover="showTip(event, 'fs27', 46)" class="fn">filterOne</span>
+
+<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs29', 47)" onmouseover="showTip(event, 'fs29', 47)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs30', 48)" onmouseover="showTip(event, 'fs30', 48)" class="id">mapi</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs31', 49)" onmouseover="showTip(event, 'fs31', 49)" class="fn">i</span> <span onmouseout="hideTip(event, 'fs32', 50)" onmouseover="showTip(event, 'fs32', 50)" class="fn">x</span> <span class="k">-&gt;</span> 
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 51)" onmouseover="showTip(event, 'fs33', 51)" class="fn">colKeysForSeq</span> <span onmouseout="hideTip(event, 'fs34', 52)" onmouseover="showTip(event, 'fs34', 52)" class="fn">seqIt</span> <span onmouseout="hideTip(event, 'fs35', 53)" onmouseover="showTip(event, 'fs35', 53)" class="fn">b</span><span class="o">=</span> 
+
+<span onmouseout="hideTip(event, 'fs34', 54)" onmouseover="showTip(event, 'fs34', 54)" class="fn">seqIt</span>
+
+<span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs29', 55)" onmouseover="showTip(event, 'fs29', 55)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 56)" onmouseover="showTip(event, 'fs36', 56)" class="id">item</span> <span onmouseout="hideTip(event, 'fs35', 57)" onmouseover="showTip(event, 'fs35', 57)" class="fn">b</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 58)" onmouseover="showTip(event, 'fs37', 58)" class="fn">cIII</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs38', 59)" onmouseover="showTip(event, 'fs38', 59)" class="fn">seq</span> <span class="pn">[</span><span onmouseout="hideTip(event, 'fs32', 60)" onmouseover="showTip(event, 'fs32', 60)" class="fn">x</span><span class="pn">;</span><span class="id">colKeysForSeq</span> <span onmouseout="hideTip(event, 'fs28', 61)" onmouseover="showTip(event, 'fs28', 61)" class="id">filterTwo</span> <span onmouseout="hideTip(event, 'fs31', 62)" onmouseover="showTip(event, 'fs31', 62)" class="id">i</span><span class="pn">]</span>
+
+<span onmouseout="hideTip(event, 'fs37', 63)" onmouseover="showTip(event, 'fs37', 63)" class="fn">cIII</span><span class="pn">)</span>
+
+
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 64)" onmouseover="showTip(event, 'fs39', 64)" class="fn">aggregatedFrameA</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 65)" onmouseover="showTip(event, 'fs40', 65)" class="fn">numAgAllCol</span> <span onmouseout="hideTip(event, 'fs41', 66)" onmouseover="showTip(event, 'fs41', 66)" class="uc">Mean</span> <span class="id">indexedFrameWithoutIndexingColumns</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">;</span><span class="s">&quot;technicalReplicate&quot;</span><span class="pn">]</span> <span class="pn">(</span><span class="id">seqOfFilterMulty</span> <span onmouseout="hideTip(event, 'fs21', 67)" onmouseover="showTip(event, 'fs21', 67)" class="id">filterA</span> <span onmouseout="hideTip(event, 'fs24', 68)" onmouseover="showTip(event, 'fs24', 68)" class="id">filterB</span><span class="pn">)</span>
+
+<span onmouseout="hideTip(event, 'fs39', 69)" onmouseover="showTip(event, 'fs39', 69)" class="fn">aggregatedFrameA</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 70)" onmouseover="showTip(event, 'fs18', 70)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>ConditionA ConditionB 
-Gen: A
-technicalReplicate: B
- -&gt; 2.5        3.45       
-Gen: A
-technicalReplicate: C
- -&gt; 4          5.6</code></pre></td></tr></table>
-<p>As you can see the <code>BioRep</code> parts of the keys was dropped and we aggregated Keys that were identical.
-Now we also want to do the median of the <code>technicalReplicate</code>. For that we need new filters and need to adjust the input parameters.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 78)" onmouseover="showTip(event, 'fs42', 78)" class="id">filterC</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 79)" onmouseover="showTip(event, 'fs22', 79)" class="fn">numericFilterServeralCol</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs23', 80)" onmouseover="showTip(event, 'fs23', 80)" class="uc">IsBiggerThan</span> <span class="n">0.5</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs39', 81)" onmouseover="showTip(event, 'fs39', 81)" class="id">aggregatedFrameA</span> 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 82)" onmouseover="showTip(event, 'fs43', 82)" class="id">filterD</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 83)" onmouseover="showTip(event, 'fs22', 83)" class="fn">numericFilterServeralCol</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs25', 84)" onmouseover="showTip(event, 'fs25', 84)" class="uc">IsSmallerThan</span> <span class="n">100.</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs39', 85)" onmouseover="showTip(event, 'fs39', 85)" class="id">aggregatedFrameA</span> 
+<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<p>As you can see the <code>BioRep</code> parts of the keys was dropped and we aggregated Keys that were identical.</p>
+<p>Now we also want to do the median of the <code>technicalReplicate</code>. For that we need new filters and need to adjust the input parameters.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 71)" onmouseover="showTip(event, 'fs42', 71)" class="fn">filterC</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 72)" onmouseover="showTip(event, 'fs22', 72)" class="fn">numericFilterServeralCol</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs23', 73)" onmouseover="showTip(event, 'fs23', 73)" class="uc">IsBiggerThan</span> <span class="n">0.5</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs39', 74)" onmouseover="showTip(event, 'fs39', 74)" class="fn">aggregatedFrameA</span> 
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 86)" onmouseover="showTip(event, 'fs44', 86)" class="id">aggregatedFrameB</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 87)" onmouseover="showTip(event, 'fs40', 87)" class="fn">numAgAllCol</span> <span onmouseout="hideTip(event, 'fs45', 88)" onmouseover="showTip(event, 'fs45', 88)" class="uc">Median</span> <span onmouseout="hideTip(event, 'fs39', 89)" onmouseover="showTip(event, 'fs39', 89)" class="id">aggregatedFrameA</span>  <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">]</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs26', 90)" onmouseover="showTip(event, 'fs26', 90)" class="fn">seqOfFilterMulty</span> <span onmouseout="hideTip(event, 'fs42', 91)" onmouseover="showTip(event, 'fs42', 91)" class="id">filterC</span> <span onmouseout="hideTip(event, 'fs43', 92)" onmouseover="showTip(event, 'fs43', 92)" class="id">filterD</span><span class="pn">)</span>
-<span onmouseout="hideTip(event, 'fs44', 93)" onmouseover="showTip(event, 'fs44', 93)" class="id">aggregatedFrameB</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 94)" onmouseover="showTip(event, 'fs18', 94)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 75)" onmouseover="showTip(event, 'fs43', 75)" class="fn">filterD</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 76)" onmouseover="showTip(event, 'fs22', 76)" class="fn">numericFilterServeralCol</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs25', 77)" onmouseover="showTip(event, 'fs25', 77)" class="uc">IsSmallerThan</span> <span class="n">100.</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs39', 78)" onmouseover="showTip(event, 'fs39', 78)" class="fn">aggregatedFrameA</span> 
+
+
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 79)" onmouseover="showTip(event, 'fs44', 79)" class="fn">aggregatedFrameB</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 80)" onmouseover="showTip(event, 'fs40', 80)" class="fn">numAgAllCol</span> <span onmouseout="hideTip(event, 'fs45', 81)" onmouseover="showTip(event, 'fs45', 81)" class="uc">Median</span> <span onmouseout="hideTip(event, 'fs39', 82)" onmouseover="showTip(event, 'fs39', 82)" class="fn">aggregatedFrameA</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">]</span> <span class="pn">(</span><span class="id">seqOfFilterMulty</span> <span onmouseout="hideTip(event, 'fs42', 83)" onmouseover="showTip(event, 'fs42', 83)" class="id">filterC</span> <span onmouseout="hideTip(event, 'fs43', 84)" onmouseover="showTip(event, 'fs43', 84)" class="id">filterD</span><span class="pn">)</span>
+
+<span onmouseout="hideTip(event, 'fs44', 85)" onmouseover="showTip(event, 'fs44', 85)" class="fn">aggregatedFrameB</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 86)" onmouseover="showTip(event, 'fs18', 86)" class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>ConditionA ConditionB 
-Gen: A
- -&gt; 3.25       4.525</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
 
                 </div>
             </div>
@@ -211,7 +205,7 @@ from NumericFilter</div>
 <div class="fsdocs-tip" id="fs10">module NumericAggregation
 
 from NumericAggregation</div>
-<div class="fsdocs-tip" id="fs11">val frameForTutorial: Frame&lt;string,string&gt;</div>
+<div class="fsdocs-tip" id="fs11">val frameForTutorial: obj</div>
 <div class="fsdocs-tip" id="fs12">val frame: columns: seq&lt;&#39;a * #ISeries&lt;&#39;c&gt;&gt; -&gt; Frame&lt;&#39;c,&#39;a&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs13">val series: observations: seq&lt;&#39;a * &#39;b&gt; -&gt; Series&lt;&#39;a,&#39;b&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs14">Multiple items<br />module Frame
@@ -239,7 +233,7 @@ from Deedle<br /><br />--------------------<br />type Frame =
  index a frame by selecting the columns that are used to create  row keys of type Key 
  &lt;/summary&gt;<br />&lt;param name=&quot;keyCols&quot;&gt;columns containing strings that are used for Key creation&lt;/param&gt;<br />&lt;param name=&quot;f&quot;&gt;frame which is indexed&lt;/param&gt;</em></div>
 <div class="fsdocs-tip" id="fs18">static member FrameExtensions.Print: frame: Frame&lt;&#39;K,&#39;V&gt; -&gt; unit (requires equality and equality)<br />static member FrameExtensions.Print: frame: Frame&lt;&#39;K,&#39;V&gt; * printTypes: bool -&gt; unit (requires equality and equality)</div>
-<div class="fsdocs-tip" id="fs19">val indexedFrameWithoutIndexingColumns: Frame&lt;Key,string&gt;</div>
+<div class="fsdocs-tip" id="fs19">val indexedFrameWithoutIndexingColumns: obj</div>
 <div class="fsdocs-tip" id="fs20">val dropCol: column: &#39;C -&gt; frame: Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs21">val filterA: seq&lt;Series&lt;Key,bool&gt;&gt;</div>
 <div class="fsdocs-tip" id="fs22">val numericFilterServeralCol: filter: NumericFilter -&gt; fp: Frame&lt;Key,string&gt; -&gt; seq&lt;Series&lt;Key,bool&gt;&gt;<br /><em>&lt;summary&gt;
@@ -248,9 +242,9 @@ from Deedle<br /><br />--------------------<br />type Frame =
 <div class="fsdocs-tip" id="fs23">union case NumericFilter.IsBiggerThan: float -&gt; NumericFilter</div>
 <div class="fsdocs-tip" id="fs24">val filterB: seq&lt;Series&lt;Key,bool&gt;&gt;</div>
 <div class="fsdocs-tip" id="fs25">union case NumericFilter.IsSmallerThan: float -&gt; NumericFilter</div>
-<div class="fsdocs-tip" id="fs26">val seqOfFilterMulty: filterOne: seq&lt;&#39;a&gt; -&gt; filterTwo: seq&lt;&#39;a&gt; -&gt; seq&lt;seq&lt;&#39;a&gt;&gt;</div>
+<div class="fsdocs-tip" id="fs26">val seqOfFilterMulty: (seq&lt;&#39;a&gt; -&gt; &#39;b -&gt; unit)</div>
 <div class="fsdocs-tip" id="fs27">val filterOne: seq&lt;&#39;a&gt;</div>
-<div class="fsdocs-tip" id="fs28">val filterTwo: seq&lt;&#39;a&gt;</div>
+<div class="fsdocs-tip" id="fs28">val filterTwo: &#39;b</div>
 <div class="fsdocs-tip" id="fs29">Multiple items<br />module Seq
 
 from FSharpAux<br /><br />--------------------<br />module Seq
@@ -270,8 +264,8 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
  Evaluates to a sequence yielding the same results as &lt;c&gt;seq { 10; 11; 12 }&lt;/c&gt;&lt;/example&gt;</em></div>
 <div class="fsdocs-tip" id="fs31">val i: int</div>
 <div class="fsdocs-tip" id="fs32">val x: &#39;a</div>
-<div class="fsdocs-tip" id="fs33">val colKeysForSeq: (seq&lt;&#39;b&gt; -&gt; int -&gt; &#39;b)</div>
-<div class="fsdocs-tip" id="fs34">val seqIt: seq&lt;&#39;b&gt;</div>
+<div class="fsdocs-tip" id="fs33">val colKeysForSeq: (seq&lt;unit&gt; -&gt; int -&gt; seq&lt;&#39;a&gt;)</div>
+<div class="fsdocs-tip" id="fs34">val seqIt: seq&lt;unit&gt;</div>
 <div class="fsdocs-tip" id="fs35">val b: int</div>
 <div class="fsdocs-tip" id="fs36">val item: index: int -&gt; source: seq&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Computes the element at the specified index in the collection.&lt;/summary&gt;<br />&lt;param name=&quot;index&quot;&gt;The index of the element to retrieve.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The element at the specified index of the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the index is negative or the input sequence does not contain enough elements.&lt;/exception&gt;<br />&lt;example id=&quot;item-1&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
  let inputs = [&quot;a&quot;; &quot;b&quot;; &quot;c&quot;]
