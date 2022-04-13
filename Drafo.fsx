@@ -1,7 +1,7 @@
 (**
 ## seriesToFrame
 
-The function `seriesToFrame` takes a Series of the type <Key,'a> and turnes it into a Frame of the type <int,string>.
+The function `seriesToFrame` takes a Series of the type `<Key,'a>` and turnes it into a Frame of the type `<int,string>`.
 The function applies the value part of the `Key` as values in its own Column called `Values`. The key part of the `Key` is turned into column names
 To get the Key type back in the Frame you can vor example index it with the `indexWithColumnValues` function
 
@@ -82,7 +82,7 @@ row2: 100
 (**
 ## createFilter
 
-The function `createFilter` needs a function that takes a input and gives a bool and a series of <Key,_>(most often a single column). It then gives a Series of <Key,bool>
+The function `createFilter` needs a function that takes a input and gives a bool and a series of `<Key,_>`(most often a single column). It then gives a Series of `<Key,bool>`
 that can be used in later functions as filter.
 
 *)
@@ -102,7 +102,7 @@ Two: 5
 (**
 ## transform
 
-The `transform`function needs a function that turns 'a into 'b and a series that has the <Key,_> type (most often a single column) to transform your data
+The `transform`function needs a function that turns 'a into 'b and a series that has the `<Key,_>` type (most often a single column) to transform your data
 
 *)
 let transformFuction a= 
@@ -121,7 +121,7 @@ Two: 5
 (**
 ## zip
 
-the `zip` function needs a function that takes two parameters and two series of type <Keytype,'a> (most often a single column) which then zippes depending on the function used
+the `zip` function needs a function that takes two parameters and two series of type `<Keytype,'a>` (most often a single column) which then zippes depending on the function used
 
 *)
 let getColumnOne = exmpColMajorFrameTwo|> getColumn<float> "c1,T1,r1"
@@ -216,7 +216,7 @@ One: 7
 (**
 ## aggregate
 
-The `aggregate` function uses a created filter to filter the given series of <Key,'a> and everything that is not true is dropped. In this case only the first row is kept.
+The `aggregate` function uses a created filter to filter the given series of `<Key,'a>` and everything that is not true is dropped. In this case only the first row is kept.
 Then either `dropKeyColumns` or `dropAllKeyColumnsBut` or a user defined function is applied to the filtered series that was turned into a frame. In the end
 the op function is applied
 
@@ -276,15 +276,15 @@ Two: 5
 ## module NumericAggregation
 
 `NumericAggregation` does either the mean, median or float based on your input. For that it needs a Frame
-of <Key,_> a fliter, a `<seq <Series <Key,bool>>>` or a `<seq <seq <Series <Key,bool>>>>`, that say which values should be aggregated and for a singel column a string
+of `<Key,_>` a fliter, a `<seq <Series <Key,bool>>>` or a `<seq <seq <Series <Key,bool>>>>`, that say which values should be aggregated and for a singel column a string
 The module has two functions either `numAgAllCol`that aggregates over all columns or `numAggregat`that agggregates one column
 The result is a Frame<Key,string>
 
 ## module NumericFilter
 
 `NumericFilter` is a module that can say if values in a given column are bigger or smaller than a given value.
-The resultant series of the type <Key,bool>.
-The input Frame needs to be of the type Frame<Key,_>.
+The resultant series of the type `<Key,bool>`.
+The input Frame needs to be of the type Frame`<Key,_>`.
 The module has one function for all columns in a frame: `numericFilterServeralCol` and one for a single `columnnumericFilter` which also needs a string to determine the column
 
 ## module NumericTransform
@@ -297,7 +297,7 @@ The `NumericTransform` has five operations that can be done on all values in eit
 | MultiplyBy
 
 These are can be either used on a full frame, `numericTransformAllCols`, or on a single column, `numericTransformOneCol`.
-Both need a Frame of the type <Key,_> and a seq<string>, to determine which columns are dropped but `numericTransform`
+Both need a Frame of the type `<Key,_>` and a seq<string>, to determine which columns are dropped but `numericTransform`
 needs a string to determine the column.
 
 ## moduleGroupWiseNumericTransform
@@ -309,18 +309,18 @@ The `GroupWiseNumericTransform` has four operations:
 | SubtractMean
 
 These are can be either used on a full frame,`groupWiseNumericTransformAllCols` , or on a single column, `groupWiseNumericTransform`.
-Both need a Frame of the type <Key,_> and a seq<string>, to determine which columns are dropped but `groupWiseNumericTransform`
+Both need a Frame of the type `<Key,_>` and a seq<string>, to determine which columns are dropped but `groupWiseNumericTransform`
 needs a string to determine the column.
 
 ## module GroupFilter
 
-`Groupfilter` filters the given Frame of <Key,_>. If a value of a Series (column), is either a bigger or lower than the given Tukey or stdev of the series than the bool is <false> otherwise it is <true>
-The end result is a Series of Key true/false pairs or a seq of series <Key,bool> for the variant that iterates over the entire frame.
+`Groupfilter` filters the given Frame of `<Key,_>`. If a value of a Series (column), is either a bigger or lower than the given Tukey or stdev of the series than the bool is <false> otherwise it is <true>
+The end result is a Series of Key true/false pairs or a seq of series `<Key,bool>` for the variant that iterates over the entire frame.
 `groupFilter` only uses one column of a Frame and `groupFilterAllCol`iterats over the entire frame
 
 ## module StringAggregation
 
-StrinAggregation concatenates string in the provide Series of <Key,string>.
+StrinAggregation concatenates string in the provide Series of `<Key,string>`.
 This happens based on the filter provided.
 `stAggregate` only uses one column of a Frame and `stAggregateFullFrame` iterates over the entire frame
 

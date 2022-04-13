@@ -83,7 +83,7 @@
             <div class="section pt-4">
                 <div class="container" id="fsdocs-content">
                     <h2><a name="seriesToFrame" class="anchor" href="#seriesToFrame">seriesToFrame</a></h2>
-<p>The function <code>seriesToFrame</code> takes a Series of the type <Key,'a> and turnes it into a Frame of the type <int,string>.
+<p>The function <code>seriesToFrame</code> takes a Series of the type <code>&lt;Key,'a&gt;</code> and turnes it into a Frame of the type <code>&lt;int,string&gt;</code>.
 The function applies the value part of the <code>Key</code> as values in its own Column called <code>Values</code>. The key part of the <code>Key</code> is turned into column names
 To get the Key type back in the Frame you can vor example index it with the <code>indexWithColumnValues</code> function</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="fn">newKeyTest</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="fn">str</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="fn">a</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="fn">Key</span><span class="pn">(</span><span class="pn">)</span><span class="pn">.</span><span class="id">addCol</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="fn">str</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="fn">a</span><span class="pn">)</span>
@@ -152,7 +152,7 @@ row2: 100
 0 -&gt; 1    3    3         &lt;missing&gt; 
 1 -&gt; 10   100  &lt;missing&gt; 100</code></pre></td></tr></table>
 <h2><a name="createFilter" class="anchor" href="#createFilter">createFilter</a></h2>
-<p>The function <code>createFilter</code> needs a function that takes a input and gives a bool and a series of <Key,_>(most often a single column). It then gives a Series of <Key,bool>
+<p>The function <code>createFilter</code> needs a function that takes a input and gives a bool and a series of <code>&lt;Key,_&gt;</code>(most often a single column). It then gives a Series of <code>&lt;Key,bool&gt;</code>
 that can be used in later functions as filter.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 51)" onmouseover="showTip(event, 'fs27', 51)" class="fn">boolFunction</span> <span onmouseout="hideTip(event, 'fs28', 52)" onmouseover="showTip(event, 'fs28', 52)" class="fn">a</span> <span class="o">=</span> 
   <span class="k">if</span> <span onmouseout="hideTip(event, 'fs28', 53)" onmouseover="showTip(event, 'fs28', 53)" class="fn">a</span> <span class="o">&gt;</span> <span class="n">1.</span> <span class="k">then</span> <span class="k">true</span>
@@ -169,7 +169,7 @@ One: 2
 Two: 5
  -&gt; True</code></pre></td></tr></table>
 <h2><a name="transform" class="anchor" href="#transform">transform</a></h2>
-<p>The <code>transform</code>function needs a function that turns 'a into 'b and a series that has the <Key,_> type (most often a single column) to transform your data</p>
+<p>The <code>transform</code>function needs a function that turns 'a into 'b and a series that has the <code>&lt;Key,_&gt;</code> type (most often a single column) to transform your data</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 60)" onmouseover="showTip(event, 'fs31', 60)" class="fn">transformFuction</span> <span onmouseout="hideTip(event, 'fs28', 61)" onmouseover="showTip(event, 'fs28', 61)" class="fn">a</span><span class="o">=</span> 
   <span class="k">if</span> <span onmouseout="hideTip(event, 'fs28', 62)" onmouseover="showTip(event, 'fs28', 62)" class="fn">a</span> <span class="o">=</span> <span class="n">1.</span> <span class="k">then</span> <span class="n">0.</span>
   <span class="k">else</span> <span onmouseout="hideTip(event, 'fs28', 63)" onmouseover="showTip(event, 'fs28', 63)" class="fn">a</span>
@@ -185,7 +185,7 @@ One: 2
 Two: 5
  -&gt; 2</code></pre></td></tr></table>
 <h2><a name="zip" class="anchor" href="#zip">zip</a></h2>
-<p>the <code>zip</code> function needs a function that takes two parameters and two series of type <Keytype,'a> (most often a single column) which then zippes depending on the function used</p>
+<p>the <code>zip</code> function needs a function that takes two parameters and two series of type <code>&lt;Keytype,'a&gt;</code> (most often a single column) which then zippes depending on the function used</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 70)" onmouseover="showTip(event, 'fs34', 70)" class="id">getColumnOne</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 71)" onmouseover="showTip(event, 'fs23', 71)" class="id">exmpColMajorFrameTwo</span><span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs21', 72)" onmouseover="showTip(event, 'fs21', 72)" class="fn">getColumn</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs35', 73)" onmouseover="showTip(event, 'fs35', 73)" class="vt">float</span><span class="pn">&gt;</span> <span class="s">&quot;c1,T1,r1&quot;</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 74)" onmouseover="showTip(event, 'fs36', 74)" class="id">getColumnTwo</span><span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 75)" onmouseover="showTip(event, 'fs23', 75)" class="id">exmpColMajorFrameTwo</span><span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs21', 76)" onmouseover="showTip(event, 'fs21', 76)" class="fn">getColumn</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs35', 77)" onmouseover="showTip(event, 'fs35', 77)" class="vt">float</span><span class="pn">&gt;</span> <span class="s">&quot;c2,T1,r1&quot;</span>
@@ -271,7 +271,7 @@ Two: 2
 One: 7
  -&gt; False</code></pre></td></tr></table>
 <h2><a name="aggregate" class="anchor" href="#aggregate">aggregate</a></h2>
-<p>The <code>aggregate</code> function uses a created filter to filter the given series of <Key,'a> and everything that is not true is dropped. In this case only the first row is kept.
+<p>The <code>aggregate</code> function uses a created filter to filter the given series of <code>&lt;Key,'a&gt;</code> and everything that is not true is dropped. In this case only the first row is kept.
 Then either <code>dropKeyColumns</code> or <code>dropAllKeyColumnsBut</code> or a user defined function is applied to the filtered series that was turned into a frame. In the end
 the op function is applied</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs64', 149)" onmouseover="showTip(event, 'fs64', 149)" class="id">letsTransformAFilter</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 150)" onmouseover="showTip(event, 'fs42', 150)" class="fn">seq</span> <span class="pn">[</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs30', 151)" onmouseover="showTip(event, 'fs30', 151)" class="fn">createFilter</span> <span onmouseout="hideTip(event, 'fs27', 152)" onmouseover="showTip(event, 'fs27', 152)" class="fn">boolFunction</span> <span onmouseout="hideTip(event, 'fs49', 153)" onmouseover="showTip(event, 'fs49', 153)" class="id">seriesForFrameFloat</span><span class="pn">)</span><span class="pn">]</span>
@@ -322,13 +322,13 @@ Two: 5
  -&gt; &lt;missing&gt; &lt;missing&gt; &lt;missing&gt; 2         5         2</code></pre></td></tr></table>
 <h2><a name="module-NumericAggregation" class="anchor" href="#module-NumericAggregation">module NumericAggregation</a></h2>
 <p><code>NumericAggregation</code> does either the mean, median or float based on your input. For that it needs a Frame
-of <Key,_> a fliter, a <code>&lt;seq &lt;Series &lt;Key,bool&gt;&gt;&gt;</code> or a <code>&lt;seq &lt;seq &lt;Series &lt;Key,bool&gt;&gt;&gt;&gt;</code>, that say which values should be aggregated and for a singel column a string
+of <code>&lt;Key,_&gt;</code> a fliter, a <code>&lt;seq &lt;Series &lt;Key,bool&gt;&gt;&gt;</code> or a <code>&lt;seq &lt;seq &lt;Series &lt;Key,bool&gt;&gt;&gt;&gt;</code>, that say which values should be aggregated and for a singel column a string
 The module has two functions either <code>numAgAllCol</code>that aggregates over all columns or <code>numAggregat</code>that agggregates one column
 The result is a Frame<Key,string></p>
 <h2><a name="module-NumericFilter" class="anchor" href="#module-NumericFilter">module NumericFilter</a></h2>
 <p><code>NumericFilter</code> is a module that can say if values in a given column are bigger or smaller than a given value.
-The resultant series of the type <Key,bool>.
-The input Frame needs to be of the type Frame<Key,_>.
+The resultant series of the type <code>&lt;Key,bool&gt;</code>.
+The input Frame needs to be of the type Frame<code>&lt;Key,_&gt;</code>.
 The module has one function for all columns in a frame: <code>numericFilterServeralCol</code> and one for a single <code>columnnumericFilter</code> which also needs a string to determine the column</p>
 <h2><a name="module-NumericTransform" class="anchor" href="#module-NumericTransform">module NumericTransform</a></h2>
 <p>The <code>NumericTransform</code> has five operations that can be done on all values in either a column(series) or a frame:
@@ -338,7 +338,7 @@ The module has one function for all columns in a frame: <code>numericFilterServe
 | DivideBy
 | MultiplyBy</p>
 <p>These are can be either used on a full frame, <code>numericTransformAllCols</code>, or on a single column, <code>numericTransformOneCol</code>.
-Both need a Frame of the type <Key,_> and a seq<string>, to determine which columns are dropped but <code>numericTransform</code>
+Both need a Frame of the type <code>&lt;Key,_&gt;</code> and a seq<string>, to determine which columns are dropped but <code>numericTransform</code>
 needs a string to determine the column.</p>
 <h2><a name="moduleGroupWiseNumericTransform" class="anchor" href="#moduleGroupWiseNumericTransform">moduleGroupWiseNumericTransform</a></h2>
 <p>The <code>GroupWiseNumericTransform</code> has four operations:
@@ -347,14 +347,14 @@ needs a string to determine the column.</p>
 | SubtractMedian
 | SubtractMean</p>
 <p>These are can be either used on a full frame,<code>groupWiseNumericTransformAllCols</code> , or on a single column, <code>groupWiseNumericTransform</code>.
-Both need a Frame of the type <Key,_> and a seq<string>, to determine which columns are dropped but <code>groupWiseNumericTransform</code>
+Both need a Frame of the type <code>&lt;Key,_&gt;</code> and a seq<string>, to determine which columns are dropped but <code>groupWiseNumericTransform</code>
 needs a string to determine the column.</p>
 <h2><a name="module-GroupFilter" class="anchor" href="#module-GroupFilter">module GroupFilter</a></h2>
-<p><code>Groupfilter</code> filters the given Frame of <Key,_>. If a value of a Series (column), is either a bigger or lower than the given Tukey or stdev of the series than the bool is <false> otherwise it is <true>
-The end result is a Series of Key true/false pairs or a seq of series <Key,bool> for the variant that iterates over the entire frame.
+<p><code>Groupfilter</code> filters the given Frame of <code>&lt;Key,_&gt;</code>. If a value of a Series (column), is either a bigger or lower than the given Tukey or stdev of the series than the bool is <false> otherwise it is <true>
+The end result is a Series of Key true/false pairs or a seq of series <code>&lt;Key,bool&gt;</code> for the variant that iterates over the entire frame.
 <code>groupFilter</code> only uses one column of a Frame and <code>groupFilterAllCol</code>iterats over the entire frame</p>
 <h2><a name="module-StringAggregation" class="anchor" href="#module-StringAggregation">module StringAggregation</a></h2>
-<p>StrinAggregation concatenates string in the provide Series of <Key,string>.
+<p>StrinAggregation concatenates string in the provide Series of <code>&lt;Key,string&gt;</code>.
 This happens based on the filter provided.
 <code>stAggregate</code> only uses one column of a Frame and <code>stAggregateFullFrame</code> iterates over the entire frame</p>
 
