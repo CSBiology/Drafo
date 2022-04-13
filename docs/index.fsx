@@ -37,12 +37,12 @@ Because Drafo is build on Deedle it is highly recommended to use Deedle too.
 You can create your own frame, with <Key> objects as row keys, transform existing frames into frames that have <Key> objects 
 or read in csv files and then transform them. 
 
-Then one can use the functions in the Drafo core or the modules to manipulate series or frames that have <Key> as row keys.
+Then one can use the functions in the Drafo core or the modules to manipulate series or frames that have <Key> objects as row keys.
 
 ## Example 
 
-We have frame of floats that we use some operations of the Drafo library on. So first we have to index it, 
-for that we have to add columns that that are turned into <Keys>.
+We have a frame of floats that we want to use some operations of the Drafo library on. So first we must index it, 
+for that we add columns that should be turned into <Keys>, should the frame not contain such columns jet.
 *)
 
 let exampleFrame = 
@@ -64,8 +64,8 @@ indexedFrameWithKeyCols.Print()
 (***include-output***) 
 
 (**
-as you can see, we have now a multi-tiered Key for each row that is unique. from this point one can go in several directions,
-for example, one could subtract or add to all values in a series (Column) with the `transform` function or one could create 
+as you can see, we have now a multi-tiered <Key> for each row that is unique. From this point, one can go in several directions.
+For example, one could subtract or add to all values in a series (Column) with the `transform` function or one could create 
 filters with the modules `GroupFilter` or `NumericFilter` or the `filter` function. Here we want to aggregate a single column. 
 *)
 
@@ -74,3 +74,4 @@ let singleColumnAggregateMean = numAggregat Mean indexedFrameWithKeyCols "Column
 singleColumnAggregateMean.Print()
 
 (***include-output***)
+
