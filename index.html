@@ -59,13 +59,13 @@
   Documentation
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="/Drafo/Drafo_pipeline_tutorial.html">
-    Drafo_pipeline_tutorial
+  <a class="nav-link" href="/Drafo/Drafo.html">
+    Drafo
   </a>
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="/Drafo/Drafo.html">
-    Drafo
+  <a class="nav-link" href="/Drafo/Drafo_pipeline_tutorial.html">
+    Drafo_pipeline_tutorial
   </a>
 </li>
                         <li class="nav-header">
@@ -100,10 +100,10 @@ The modules allow for easy creation of filters und processing of either series o
 Because Drafo is build on Deedle it is highly recommended to use Deedle too.</p>
 <p>You can create your own frame, with <Key> objects as row keys, transform existing frames into frames that have <Key> objects
 or read in csv files and then transform them.</p>
-<p>Then one can use the functions in the Drafo core or the modules to manipulate series or frames that have <Key> as row keys.</p>
+<p>Then one can use the functions in the Drafo core or the modules to manipulate series or frames that have <Key> objects as row keys.</p>
 <h2><a name="Example" class="anchor" href="#Example">Example</a></h2>
-<p>We have frame of floats that we use some operations of the Drafo library on. So first we have to index it,
-for that we have to add columns that that are turned into <Keys>.</p>
+<p>We have a frame of floats that we want to use some operations of the Drafo library on. So first we must index it,
+for that we add columns that should be turned into <Keys>, should the frame not contain such columns jet.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="id">exampleFrame</span> <span class="o">=</span> 
   <span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="fn">frame</span> <span class="pn">[</span>
     <span class="pn">(</span><span class="s">&quot;Column1&quot;</span><span class="pn">)</span><span class="o">=&gt;</span><span onmouseout="hideTip(event, 'fs11', 11)" onmouseover="showTip(event, 'fs11', 11)" class="fn">series</span> <span class="pn">[</span><span class="s">&quot;row1&quot;</span><span class="o">=&gt;</span><span class="n">2.</span><span class="pn">;</span><span class="s">&quot;row2&quot;</span><span class="o">=&gt;</span><span class="n">4.5</span><span class="pn">;</span><span class="s">&quot;row3&quot;</span><span class="o">=&gt;</span><span class="n">3.7</span><span class="pn">;</span><span class="s">&quot;row4&quot;</span><span class="o">=&gt;</span><span class="n">2.9</span><span class="pn">]</span>
@@ -137,8 +137,8 @@ Gen: A
 TecRep: C
 BioRep: E
  -&gt; 2.9     5       A   C      E</code></pre></td></tr></table>
-<p>as you can see, we have now a multi-tiered Key for each row that is unique. from this point one can go in several directions,
-for example, one could subtract or add to all values in a series (Column) with the <code>transform</code> function or one could create
+<p>as you can see, we have now a multi-tiered <Key> for each row that is unique. From this point, one can go in several directions.
+For example, one could subtract or add to all values in a series (Column) with the <code>transform</code> function or one could create
 filters with the modules <code>GroupFilter</code> or <code>NumericFilter</code> or the <code>filter</code> function. Here we want to aggregate a single column.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 29)" onmouseover="showTip(event, 'fs18', 29)" class="id">singleColumnAggregateMean</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="fn">numAggregat</span> <span onmouseout="hideTip(event, 'fs20', 31)" onmouseover="showTip(event, 'fs20', 31)" class="uc">Mean</span> <span onmouseout="hideTip(event, 'fs15', 32)" onmouseover="showTip(event, 'fs15', 32)" class="id">indexedFrameWithKeyCols</span> <span class="s">&quot;Column1&quot;</span> <span class="pn">[</span><span class="s">&quot;Gen&quot;</span><span class="pn">;</span><span class="s">&quot;TecRep&quot;</span><span class="pn">]</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="fn">seq</span> <span class="pn">[</span><span class="pn">]</span><span class="pn">)</span>
 
