@@ -1,8 +1,8 @@
 (**
 ## seriesToFrame
 
-The function `seriesToFrame` takes a Series of the type <Key,'a> and tunes it into a Frame of the type <int,string>.
-The function applies the value part of the `Key` as values and the value of the series tuple into its own Coumn called `Values`
+The function `seriesToFrame` takes a Series of the type <Key,'a> and turnes it into a Frame of the type <int,string>.
+The function applies the value part of the `Key` as values in its own Column called `Values`. The key part of the `Key` is turned into column names
 To get the Key type back in the Frame you can vor example index it with the `indexWithColumnValues` function
 
 *)
@@ -23,7 +23,7 @@ One Two Value
 (**
 ## indexWithColumnValues
 
-The function `indexWithColumnValues` takes the Column Keys defined in a Series that is provided and Values in these columns and applies them as Keys into the Rows. The original column keys are maintained.
+The function `indexWithColumnValues` takes the column keys defined in a Series that is provided and values in these columns and applies them as Keys into the Rows. The original column keys are maintained.
 
 *)
 let seriesToFrameTestIndexed = seriesToFrame seriesForFrame |> indexWithColumnValues ["One"; "Two"]
@@ -39,7 +39,7 @@ Two: 5
 (**
 ## getColumn
 
-the function of the `getColumn` function is the equal to the the same operation in Deedle.
+The `getColumn` function gets a single column of the frame. It needs the exact name of the column key.
 
 *)
 let getColumn2: Series<Key,string> = getColumn "Two" seriesToFrameTestIndexed
